@@ -7,7 +7,7 @@ const SignUp = () => {
   const [confirmPasswordType, ConfirmPasswordIcon] = usePasswordToggle();
   const navigate = useNavigate()
   return (
-    <div className="w-[80%] h-[100%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-2 max-sm:py-0">
+    <div className="w-[80%] h-[100%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-2 max-sm:py-0 max-sm:h-auto">
       <div className="shrink">
         <h1 className="text-[26px] font-bold pb-4 max-[1025px]:pb-2 max-[1025px]:text-[20px] max-md:text-[16px]">
           Create your <span className="text-[#18b1a6]">CareerCraze</span>{" "}
