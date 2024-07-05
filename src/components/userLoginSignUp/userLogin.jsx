@@ -6,7 +6,7 @@ const Login = () => {
   const [loginPassword, loginIcon] = usePasswordToggle();
   const navigate = useNavigate();
   return (
-    <div className="w-[80%] h-[80%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-4">
+    <div className="w-[80%] h-[80%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-4 max-sm:py-2">
       <div className="shrink">
         <h1 className="text-[26px] font-bold pb-8 max-[1025px]:text-[20px] max-md:text-[18px] max-sm:text-[16px]">
           Login into <span className="text-[#18b1a6] pr-2">CareerCraze</span>
