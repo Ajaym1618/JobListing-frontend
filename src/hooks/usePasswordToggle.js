@@ -12,4 +12,4 @@ const usePasswordToggle = () => {
 
 }
 
-export default usePasswordToggle
+export default usePasswordToggle;
