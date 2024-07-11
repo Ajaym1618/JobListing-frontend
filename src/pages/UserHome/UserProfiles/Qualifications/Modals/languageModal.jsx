@@ -21,7 +21,7 @@ const LanguageModal = () => {
               className="w-[100%] rounded-md py-2 shrink px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
             />
           </div>
-          <div className="w-[100%] shrink flex flex-col gap-1 relative border-b relative">
+          <div className="w-[100%] shrink flex flex-col gap-1 border-b relative">
             <label htmlFor="educationField" className="block font-semibold">
               Proficiency<span className="text-[#f14c4c]">*</span>
             </label>

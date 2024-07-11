@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import logo from "../../../assets/logo.png";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
-
-const Header = () => {
+const EmployerHeader = () => {
   const [model, setModel] = useState(false);
   const [line, setLine] = useState("/jobs");
 
@@ -40,17 +39,18 @@ const Header = () => {
           className={`h-[78px] flex items-center ${
             line === "/companies" ? "border-b-[3px]" : ""
           } border-[#015f4d] pt-1 cursor-pointer text-lg hover:text-[#015f4d] max-lg:hidden`}
-          onClick={() => handleNavigate("/companies")}
         >
-          Companies
+          Candidates
         </div>
       </div>
       <div className="w-[100%] flex justify-end items-center gap-10 text-2xl px-8 relative max-lg:text-xl ">
+        <button className="px-4 py-2 text-lg text-white bg-[#18b1a6] rounded-md">
+          Post a job
+        </button>
         <BellOutlined
           className={`cursor-pointer h-[80px] flex items-center ${
             line === "/notifications" ? "border-b-[3px]" : ""
           } border-[#015f4d] hover:text-[#015f4d]`}
-          onClick={() => handleNavigate("/notifications")}
         />
         <UserOutlined
           className="cursor-pointer hover:text-[#015f4d]"
@@ -59,8 +59,8 @@ const Header = () => {
         {model && (
           // before media query
           <>
-            <div className="w-auto h-auto rounded-md absolute top-20 right-0 border border-[#015f4d] bg-white shadow-md shadow-slate-400 z-20 overflow-hidden max-lg:hidden">
-              <div className="absolute top-[-11px] border-l border-t border-[#015f4d] right-8 rotate-[45deg] w-[20px] h-[20px] bg-white z-0"></div>
+            <div className="w-auto h-auto rounded-md absolute top-20 right-0 border border-[#015f4d] bg-white shadow-md shadow-slate-400 max-lg:hidden">
+              <div className="absolute top-[-11px] border-l border-t border-[#015f4d] right-8 rotate-[45deg] w-[20px] h-[20px] bg-white z-30"></div>
               <div className="w-[100%] py-4 text-lg flex flex-col">
                 <div className="font-semibold px-6 py-2">email</div>
                 <div
@@ -82,13 +82,16 @@ const Header = () => {
                   <i className="fa-solid fa-bookmark "></i>My jobs
                 </div>
               </div>
-              <div className="w-[100%] py-2 font-semibold text-[#015f4d] text-lg border-t border-gray-600 flex gap-3 justify-center items-center cursor-pointer hover:bg-[#d8fffc]">
+              <div
+                className="w-[100%] py-2 font-semibold text-[#015f4d] text-lg border-t border-gray-600 flex gap-3 justify-center items-center cursor-pointer hover:bg-[#d8fffc]"
+                onClick={() => navigate("/")}
+              >
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 Sign out
               </div>
             </div>
             {/* // After media query */}
-            <div className="w-auto h-auto rounded-md absolute top-20 right-0 border border-[#015f4d] bg-white shadow-md shadow-slate-400 z-20 overflow-hidden hidden max-lg:block">
+            <div className="w-auto h-auto rounded-md absolute top-20 right-0 border border-[#015f4d] bg-white shadow-md shadow-slate-400 z-20 hidden max-lg:block">
               <div className="absolute top-[-11px] border-l border-t border-[#015f4d] right-8 rotate-[45deg] w-[20px] h-[20px] bg-white z-0"></div>
               <div className="w-[100%] py-4 text-lg flex flex-col max-md:text-sm">
                 <div
@@ -134,4 +137,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default EmployerHeader;

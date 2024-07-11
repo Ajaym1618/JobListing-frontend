@@ -1,5 +1,6 @@
+import EmployerHome from "./pages/EmployerHome/employerHome";
 import EmployerLoginSignUp from "./pages/EmployerLoginSignUp/employerLoginSignUp";
-import Home from "./pages/Home/Home";
+import Home from "./pages/UserHome/Home";
 import UserLoginSignUp from "./pages/UserLoginSignUp_/userLoginSignUp";
 import {
   BrowserRouter as Router,
@@ -60,6 +61,7 @@ function App() {
             path="/contact-info"
             element={<Home type="/contact-info"/>}
           ></Route>
+          <Route path="/employer-home" element={<EmployerHome/>}></Route>
         </Routes>
       </Router>
     </div>

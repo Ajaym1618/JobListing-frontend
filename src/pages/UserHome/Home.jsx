@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Header from "./Header/header";
+import Header from "./UserHeader/header";
 import Jobs from "./Jobs/jobs";
 import Companies from "./Companies/companies";
 import { useLocation } from "react-router-dom";
-import Notifications from "./Notifications/notifications";
-import Profile from "./Profiles/profiles";
+import Notifications from "./userNotifications/notifications";
+import Profile from "./UserProfiles/Profiles";
 import Saved from "./Saved/saved";
-import Qualifications from "./Profiles/Qualifications/qualifications";
-import ContactInfo from "./Profiles/ContactInfo/contactInfo";
+import Qualifications from "./UserProfiles/Qualifications/qualifications";
+import ContactInfo from "./UserProfiles/ContactInfo/contactInfo";
 
 const Home = () => {
   const [JC, setJC] = useState("Jobs");

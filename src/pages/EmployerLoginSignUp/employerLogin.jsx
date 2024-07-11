@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import usePasswordToggle from "../../hooks/usePasswordToggle";
 import Button from "../../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const EmployerLogin = () => {
   const [passwordType, PasswordIcon] = usePasswordToggle();
+
+  const navigate = useNavigate();
 
   const [employLoginData, setEmployLoginData] = useState({
     employerLoginEmail: "",
@@ -32,7 +35,7 @@ const EmployerLogin = () => {
         <span className="absolute top-2 right-3">{PasswordIcon}</span>
       </div>
       <div className="w-[100%] flex justify-end mt-4">
-        <Button BtName={"Login"}/>
+        <Button BtName={"Login"} route={"/employer-home"}/>
       </div>
     </form>
   );
