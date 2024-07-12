@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Jobs from "./PostingJobs/jobs";
 import Candidates from "./Candidates/candidates";
 import EmployerInfo from "./EmployerInfo/employerInfo";
-import EmployerHeader from "./EmployerHeader/header";
+import EmployerHeader from "../EmployerHeader/header";
 
 const EmployerHome = () => {
   const [JC, setJC] = useState("Jobs");
@@ -28,9 +28,9 @@ const EmployerHome = () => {
   return (
     <div className="w-[100%] h-[100vh]">
       <EmployerHeader />
-      {JC === "employerJobs"&& <Jobs/>}
-      {JC === "candidates"&& <Candidates/>}
-      {JC === "employerInfo"&& <EmployerInfo/>}
+      {JC === "employerJobs" && <Jobs />}
+      {JC === "candidates" && <Candidates />}
+      {JC === "employerInfo" && <EmployerInfo />}
     </div>
   );
 };

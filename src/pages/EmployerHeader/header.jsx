@@ -3,7 +3,7 @@ import logo from "../../../assets/logo.png";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
-import EmployerNotifications from "../EmployerNotifications/employerNotifications";
+import EmployerNotifications from "../EmployerHome/EmployerNotifications/employerNotifications";
 const EmployerHeader = () => {
   const [userModel, setUserModel] = useState(false);
   const [notifyModel, setNotifyModel] = useState(false);
@@ -61,7 +61,7 @@ const EmployerHeader = () => {
           className="cursor-pointer hover:text-[#015f4d]"
           onClick={() => {
             setUserModel(!userModel);
-            setNotifyModel(false)
+            setNotifyModel(false);
           }}
         />
         {notifyModel && (
