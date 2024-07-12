@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import logo from "../../assets/logo.png";
+import logo from "../../../assets/logo.png";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
-import EmployerNotifications from "../EmployerHome/EmployerNotifications/employerNotifications";
+import EmployerNotifications from "../EmployerNotifications/employerNotifications";
 const EmployerHeader = () => {
   const [userModel, setUserModel] = useState(false);
   const [notifyModel, setNotifyModel] = useState(false);
