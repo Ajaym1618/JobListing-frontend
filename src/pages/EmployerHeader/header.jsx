@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "../../../assets/logo.png";
+import logo from "../../assets/logo.png";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
