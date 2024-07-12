@@ -65,7 +65,7 @@ const EmployerHeader = () => {
           }}
         />
         {notifyModel && (
-          <div className="absolute top-20 -right-[14px]">
+          <div className="absolute top-20 -right-[14px] z-30">
             <div className="absolute top-[-10px] right-[108px] border-l border-t border-[#015f4d]  rotate-[45deg] w-[20px] h-[20px] bg-white z-30 max-lg:right-[103px]"></div>
             <EmployerNotifications />
           </div>
