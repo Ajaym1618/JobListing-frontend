@@ -7,10 +7,20 @@ const Login = () => {
   const [loginPassword, loginIcon] = usePasswordToggle();
   const navigate = useNavigate();
 
+  // state for storing login data
   const [userLoginData, setUserLoginData] = useState({
     userLogEmail: "",
     userLogPassword: "",
   });
+
+  // handling the data entered by the user
+  const handleUserLoginData = (e) => {
+    const {id, value} = e.target;
+    setUserLoginData((prevData)=>({...prevData,[id]:value}))
+  }
+
+  // log to check data is stored or not
+  console.log(userLoginData);
 
   return (
     <div className="w-[80%] h-[80%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-4 max-sm:h-auto">
@@ -30,6 +40,7 @@ const Login = () => {
             id="userLogEmail"
             placeholder="Enter your email ID"
             value={userLoginData.userLogEmail}
+            onChange={handleUserLoginData}
             className="w-[100%] rounded-md py-2 shrink px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
           />
         </div>
@@ -42,6 +53,7 @@ const Login = () => {
             id="userLogPassword"
             placeholder="Enter yor password"
             value={userLoginData.userLogPassword}
+            onChange={handleUserLoginData}
             className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
           />
           <span className="absolute top-9 right-3">{loginIcon}</span>

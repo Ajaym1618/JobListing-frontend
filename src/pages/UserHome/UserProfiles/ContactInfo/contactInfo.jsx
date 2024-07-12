@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
 const ContactInfo = () => {
+
+  const [userContact, setUserContact] = useState({
+    contactFullName:"",
+    contactPhoneNo:"",
+    contactCountry:"",
+    contactStreet:"",
+    contactCity:"",
+    contactPincode:""
+  })
+
+  // handling the data entered by the user
+  const handleUserContact = (e) =>{
+    const {id, value} = e.target;
+    setUserContact((prevData) =>({...prevData, [id]:value}))
+  } 
+
+    // log to check data stored or not
+    console.log(userContact);
+
   const navigate = useNavigate();
   return (
     <div className="w-[100%] h-auto pt-3">
@@ -26,7 +45,8 @@ const ContactInfo = () => {
               <input
                 type="text"
                 id="contactFullName"
-                // value={userLoginData.userLogEmail}
+                value={userContact.contactFullName}
+                onChange={handleUserContact}
                 className="w-[100%] rounded-md py-2 shrink px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>
@@ -35,9 +55,9 @@ const ContactInfo = () => {
                 Phone<span className="text-[#f14c4c]">*</span>
               </label>
               <input
-                // type={loginPassword}
                 id="contactPhoneNo"
-                // value={userLoginData.userLogPassword}
+                value={userContact.contactPhoneNo}
+                onChange={handleUserContact}
                 className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>
@@ -52,9 +72,9 @@ const ContactInfo = () => {
                 Country
               </label>
               <input
-                // type={loginPassword}
                 id="contactCountry"
-                // value={userLoginData.userLogPassword}
+                value={userContact.contactCountry}
+                onChange={handleUserContact}
                 className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>
@@ -63,9 +83,9 @@ const ContactInfo = () => {
                 Street address
               </label>
               <input
-                // type={loginPassword}
                 id="contactStreet"
-                // value={userLoginData.userLogPassword}
+                value={userContact.contactStreet}
+                onChange={handleUserContact}
                 className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>
@@ -74,9 +94,9 @@ const ContactInfo = () => {
                 City, State<span className="text-[#f14c4c]">*</span>
               </label>
               <input
-                // type={loginPassword}
                 id="contactCity"
-                // value={userLoginData.userLogPassword}
+                value={userContact.contactCity}
+                onChange={handleUserContact}
                 className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>
@@ -85,9 +105,9 @@ const ContactInfo = () => {
                 Pincode
               </label>
               <input
-                // type={loginPassword}
                 id="contactPincode"
-                // value={userLoginData.userLogPassword}
+                value={userContact.contactPincode}
+                onChange={handleUserContact}
                 className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>

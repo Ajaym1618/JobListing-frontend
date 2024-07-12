@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { SearchOutlined, RightOutlined } from "@ant-design/icons";
 import robot from "../../../assets/robot.png";
 
 const Companies = () => {
+
+  const [companyFilter, setCompanyFilter] = useState({
+    searchData:""
+  })
+
+  const handleCompanyFilter = (e) =>{
+    const {id, value} = e.target;
+    setCompanyFilter({[id]:value})
+  }
+
+  console.log(companyFilter);
+
   return (
     <div className="w-[100%] h-auto bg-[#f6f5fa]">
       <div className="w-[70%] h-auto py-10 px-10 flex flex-col gap-4 items-start m-auto max-lg:w-[100%] max-md:px-4">
@@ -17,6 +29,9 @@ const Companies = () => {
           <div className="w-[60%] relative max-md:w-[100%] max-md:pb-2">
             <input
               type="text"
+              id="searchData"
+              value={companyFilter.searchData}
+              onChange={handleCompanyFilter}
               placeholder="search by company name"
               className="w-[100%] font-semibold text-[#18b1a6] py-2 px-4 pr-10 rounded-md border border-gray-500 outline-[#18b1a6] max-md:text-sm"
             />

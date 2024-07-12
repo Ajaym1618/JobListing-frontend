@@ -8,6 +8,7 @@ const SignUp = () => {
   const [confirmPasswordType, ConfirmPasswordIcon] = usePasswordToggle();
   const navigate = useNavigate();
 
+  //state for storing the entered data
   const [userSignUpData, setUserSignUpData] = useState({
     userSignFullName: "",
     userSignEmail: "",
@@ -15,6 +16,15 @@ const SignUp = () => {
     userSignConfirmPassword: "",
     userSignMobileNo: "",
   });
+
+  // handling sign up data entered by the user
+  const handleUserSignUpData = (e) => {
+    const { id, value } = e.target;
+    setUserSignUpData((prevData) => ({ ...prevData, [id]: value }));
+  };
+
+  // log to check data is stored or not
+  console.log(userSignUpData);
 
   return (
     <div className="w-[80%] h-[100%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-2  max-sm:h-auto">
@@ -37,6 +47,7 @@ const SignUp = () => {
             id="userSignFullName"
             placeholder="What is your name?"
             value={userSignUpData.userSignFullName}
+            onChange={handleUserSignUpData}
             className="w-[100%] rounded-md py-2 px-3 text-[#18b1a6] text-md font-semibold outline-[#18b1a6] border border-[#191919] max-[1025px]:py-1 max-md:text-sm"
           />
         </div>
@@ -52,6 +63,7 @@ const SignUp = () => {
             id="userSignEmail"
             placeholder="Tell us your Email ID"
             value={userSignUpData.userSignEmail}
+            onChange={handleUserSignUpData}
             className="w-[100%] rounded-md py-2 shrink px-3 text-[#18b1a6] text-md font-semibold outline-[#18b1a6] border border-[#191919] max-[1025px]:py-1 max-md:text-sm"
           />
         </div>
@@ -67,6 +79,7 @@ const SignUp = () => {
             id="userSignPassword"
             placeholder="(Minimum 6 characters)"
             value={userSignUpData.userSignPassword}
+            onChange={handleUserSignUpData}
             className="w-[100%] rounded-md py-2 px-3 text-[#18b1a6] text-md font-semibold outline-[#18b1a6] border border-[#191919] max-[1025px]:py-1 max-md:text-sm"
           />
           <span className="absolute top-9 right-3 max-md:top-7">
@@ -85,6 +98,7 @@ const SignUp = () => {
             id="userSignConfirmPassword"
             placeholder="Re-enter your password"
             value={userSignUpData.userSignConfirmPassword}
+            onChange={handleUserSignUpData}
             className="w-[100%] rounded-md py-2 px-3 text-[#18b1a6] text-md font-semibold outline-[#18b1a6] border border-[#191919] max-[1025px]:py-1 max-md:text-sm"
           />
           <span className="absolute top-9 right-3 max-md:top-7">
@@ -103,6 +117,7 @@ const SignUp = () => {
             id="userSignMobileNo"
             placeholder="Enter yor mobile number"
             value={userSignUpData.userSignMobileNo}
+            onChange={handleUserSignUpData}
             className="w-[100%] rounded-md py-2 px-3 text-[#18b1a6] text-md font-semibold outline-[#18b1a6] border border-[#191919] max-[1025px]:py-1 max-md:text-sm"
           />
         </div>

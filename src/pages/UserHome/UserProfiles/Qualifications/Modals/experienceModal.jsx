@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 
 const ExperienceModal = () => {
+
+  const [userExp, setUserExp] = useState({
+    experienceJobTitle:"",
+    experienceCompany:""
+  })
+
+  const handleUserExp = (e) =>{
+    const {id, value} = e.target;
+    setUserExp((prevData)=>({...prevData,[id]:value}))
+  }
+
+  console.log(userExp);
     
   return (
     <div className="w-[100%] h-[88vh] flex justify-center items-center">
@@ -18,6 +30,8 @@ const ExperienceModal = () => {
             <input
               type="text"
               id="experienceJobTitle"
+              value={userExp.experienceJobTitle}
+              onChange={handleUserExp}
               className="w-[100%] rounded-md py-2 shrink px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
             />
           </div>
@@ -27,6 +41,8 @@ const ExperienceModal = () => {
             </label>
             <input
               id="experienceCompany"
+              value={userExp.experienceCompany}
+              onChange={handleUserExp}
               className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
             />
           </div>

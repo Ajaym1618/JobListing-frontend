@@ -4,6 +4,18 @@ import { FaChevronDown } from "react-icons/fa";
 const LanguageModal = () => {
   const [drop, setDrop] = useState(false);
 
+  const [userLan, setUserLan] = useState({
+    languages:"",
+    proficiency:""
+  })
+
+  const handleUserLan = (e) =>{
+    const {id, value} = e.target;
+    setUserLan((prevData)=>({...prevData,[id]:value}))
+  }
+
+  console.log(userLan);
+
   return (
     <div className="w-[100%] h-[88vh] flex justify-center items-center">
       <div className="w-[40%] h-auto rounded-xl py-3 bg-white flex justify-center items-center flex-col gap-6 max-lg:w-[90%]">
@@ -18,15 +30,19 @@ const LanguageModal = () => {
             <input
               type="text"
               id="languages"
+              value={userLan.languages}
+              onChange={handleUserLan}
               className="w-[100%] rounded-md py-2 shrink px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
             />
           </div>
           <div className="w-[100%] shrink flex flex-col gap-1 border-b relative">
-            <label htmlFor="educationField" className="block font-semibold">
+            <label htmlFor="proficiency" className="block font-semibold">
               Proficiency<span className="text-[#f14c4c]">*</span>
             </label>
             <div
-              id="educationField"
+              id="proficiency"
+              value={userLan.proficiency}
+              onChange={handleUserLan}
               className="w-[100%] rounded-md flex justify-between items-center py-2 px-5 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               onClick={() => setDrop(!drop)}
             >

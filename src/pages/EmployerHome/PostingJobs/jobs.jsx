@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineControl } from "react-icons/ai";
 import calendar from "../../../assets/calendar.png";
 
 const Jobs = () => {
+  const [jobFilter, setJobFilter] = useState({
+    filterData: "",
+  });
+
+  const handleJobFilter = (e) => {
+    const {id, value} = e.target;
+    setJobFilter({[id]:value});
+  }
+
+  console.log(jobFilter);
+
   return (
     <div className="w-[100%] h-[88vh] px-10 py-10">
       <div className="w-full flex justify-between items-center pb-6">
@@ -15,6 +26,9 @@ const Jobs = () => {
         <div className="w-[30%] relative max-lg:w-[100%]">
           <input
             type="text"
+            id="filterData"
+            value={jobFilter.filterData}
+            onChange={handleJobFilter}
             placeholder="Filter and search jobs"
             className="w-[100%] py-2 px-3 rounded-md text-[#18b1a6] border border-black outline-[#18b1a6]"
           />

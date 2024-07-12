@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 const EducationModal = () => {
+
+  const [userEdu, setUserEdu] = useState({
+    educationLevel:"",
+    educationField:""
+  })
+
+  const handleUserEdu = (e) =>{
+    const {id, value} = e.target;
+    setUserEdu((prevData)=>({...prevData,[id]:value}))
+  }
+
+  console.log(userEdu);
+ 
   return (
     <div className="w-[100%] h-[88vh] flex justify-center items-center">
       <div className="w-[40%] h-auto rounded-xl py-3 bg-white flex justify-center items-center flex-col gap-6 max-lg:w-[90%]">
@@ -15,6 +28,8 @@ const EducationModal = () => {
             <input
               type="text"
               id="educationLevel"
+              value={userEdu.educationLevel}
+              onChange={handleUserEdu}
               className="w-[100%] rounded-md py-2 shrink px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
             />
           </div>
@@ -24,6 +39,8 @@ const EducationModal = () => {
             </label>
             <input
               id="educationField"
+              value={userEdu.educationField}
+              onChange={handleUserEdu}
               className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
             />
           </div>

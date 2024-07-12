@@ -11,6 +11,7 @@ const UserLoginSignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // useEffect for changing routes
   useEffect(() => {
     if (location.pathname == "/login") {
       setLoRe("login");

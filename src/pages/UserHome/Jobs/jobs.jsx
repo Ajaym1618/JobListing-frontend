@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SearchOutlined,
   EnvironmentOutlined,
   ExportOutlined,
 } from "@ant-design/icons";
 const Jobs = () => {
+  //state for handling search
+  const [searchFilter, setSearchFilter] = useState({
+    companyTitle: "",
+    city: "",
+  });
+
+  // handling filter data
+  const handleSearchFilter = (e) => {
+    const { id, value } = e.target;
+    setSearchFilter((prevData) => ({ ...prevData, [id]: value }));
+  };
+
+  //log for checking
+  console.log(searchFilter);
+
   return (
     <div className="w-[100%] h-auto">
       <div className="w-[100%]">
@@ -15,14 +30,20 @@ const Jobs = () => {
               <input
                 type="text"
                 placeholder="Job title, keywords, or company"
+                id="companyTitle"
+                value={searchFilter.companyTitle}
+                onChange={handleSearchFilter}
                 className="w-[350px] py-4 pl-14 text-[17px] text-[#18b1a6] rounded-l-md outline-none max-lg:w-[90%] max-md:text-[12px] max-md:py-2 max-md:pl-12"
               />
             </div>
             <div className="relative max-lg:border-b border-gray-400 max-lg:mb-2">
-              <EnvironmentOutlined className="absolute text-xl top-[18px] left-5 max-md:top-[10px] max-md:text-sm"/>
+              <EnvironmentOutlined className="absolute text-xl top-[18px] left-5 max-md:top-[10px] max-md:text-sm" />
               <input
                 type="text"
                 placeholder='City, state, zip code, or "remote"'
+                id="city"
+                value={searchFilter.city}
+                onChange={handleSearchFilter}
                 className="w-[350px] py-4 pl-14 text-[17px] text-[#18b1a6] rounded-r-md outline-none max-lg:w-[90%] max-md:text-[12px] max-md:py-2 max-md:pl-12"
               />
             </div>
