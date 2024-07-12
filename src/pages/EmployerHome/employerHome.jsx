@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import EmployerHeader from "./employerHeader/header";
+import EmployerHeader from "./EmployerHeader/header";
 import { useLocation } from "react-router-dom";
 import Jobs from "./PostingJobs/jobs";
 import Candidates from "./Candidates/candidates";
+import EmployerInfo from "./EmployerInfo/employerInfo";
 
 const EmployerHome = () => {
   const [JC, setJC] = useState("Jobs");
@@ -16,6 +17,9 @@ const EmployerHome = () => {
       case "/candidates":
         setJC("candidates");
         break;
+      case "/employer-info":
+        setJC("employerInfo");
+        break;
       default:
         setJC("employerJobs");
         break;
@@ -26,6 +30,7 @@ const EmployerHome = () => {
       <EmployerHeader />
       {JC === "employerJobs"&& <Jobs/>}
       {JC === "candidates"&& <Candidates/>}
+      {JC === "employerInfo"&& <EmployerInfo/>}
     </div>
   );
 };

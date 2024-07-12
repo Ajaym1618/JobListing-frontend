@@ -3,8 +3,10 @@ import logo from "../../../assets/logo.png";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
+import EmployerNotifications from "../EmployerNotifications/employerNotifications";
 const EmployerHeader = () => {
-  const [model, setModel] = useState(false);
+  const [userModel, setUserModel] = useState(false);
+  const [notifyModel, setNotifyModel] = useState(false);
   const [line, setLine] = useState("");
 
   const location = useLocation();
@@ -50,12 +52,25 @@ const EmployerHeader = () => {
           className={`cursor-pointer h-[80px] flex items-center ${
             line === "/notifications" ? "border-b-[3px]" : ""
           } border-[#015f4d] hover:text-[#015f4d]`}
+          onClick={() => {
+            setNotifyModel(!notifyModel);
+            setUserModel(false);
+          }}
         />
         <UserOutlined
           className="cursor-pointer hover:text-[#015f4d]"
-          onClick={() => setModel(!model)}
+          onClick={() => {
+            setUserModel(!userModel);
+            setNotifyModel(false)
+          }}
         />
-        {model && (
+        {notifyModel && (
+          <div className="absolute top-20 -right-[14px]">
+            <div className="absolute top-[-10px] right-[108px] border-l border-t border-[#015f4d]  rotate-[45deg] w-[20px] h-[20px] bg-white z-30 max-lg:right-[103px]"></div>
+            <EmployerNotifications />
+          </div>
+        )}
+        {userModel && (
           // before media query
           <>
             <div className="w-auto h-auto rounded-md absolute top-20 right-0 border border-[#015f4d] bg-white shadow-md shadow-slate-400 max-lg:hidden">
@@ -65,8 +80,8 @@ const EmployerHeader = () => {
                 <div
                   className=" flex gap-2 px-5 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]"
                   onClick={() => {
-                    handleNavigate("/employer-settings");
-                    setModel(!model);
+                    handleNavigate("/employer-info");
+                    setUserModel(!userModel);
                   }}
                 >
                   <IoMdSettings className="text-2xl" />
@@ -89,23 +104,25 @@ const EmployerHeader = () => {
                   className="px-6 flex gap-3 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]"
                   onClick={() => {
                     handleNavigate("/employer-jobs");
-                    setModel(!model);
+                    setUserModel(!userModel);
                   }}
                 >
                   <i class="fa-solid fa-briefcase"></i>Jobs
                 </div>
                 <div
                   className="px-6 flex gap-3 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]"
-                  onClick={() =>{ handleNavigate("/candidates");
-                  setModel(!model)}}
+                  onClick={() => {
+                    handleNavigate("/candidates");
+                    setUserModel(!userModel);
+                  }}
                 >
                   <i class="fa-solid fa-building"></i>Candidates
                 </div>
                 <div
                   className=" flex gap-3 px-5 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]"
                   onClick={() => {
-                    handleNavigate("/employer-settings");
-                    setModel(!model);
+                    handleNavigate("/employer-info");
+                    setUserModel(!userModel);
                   }}
                 >
                   <IoMdSettings className="text-lg" />

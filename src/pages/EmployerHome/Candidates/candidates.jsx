@@ -5,7 +5,7 @@ const Candidates = () => {
   return (
     <div className="w-[100%] h-[88vh] py-5 px-5">
       <h1 className="py-3 px-2 text-2xl font-semibold">Candidates</h1>
-      <div className="w-full h-[90%] flex flex-col items-center justify-center gap-4 bg-white rounded-xl shadow-xl shadow-slate-600">
+      <div className="w-full h-[90%] flex flex-col items-center justify-center gap-4 bg-white rounded-xl shadow-md shadow-slate-600">
         <div className="w-full flex justify-center items-center">
           <img src={smartphone} alt="" className="w-[250px]" />
         </div>

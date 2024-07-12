@@ -23,34 +23,22 @@ function App() {
             path="/register"
             element={<UserLoginSignUp type="/register" />}
           ></Route>
-          <Route path="/home" element={<Navigate to="/jobs"/>}></Route>
-          <Route
-            path="/jobs"
-            element={<Home type="/jobs" />}
-          ></Route>
-          <Route
-            path="/companies"
-            element={<Home type="/companies" />}
-          ></Route>
+          <Route path="/home" element={<Navigate to="/jobs" />}></Route>
+          <Route path="/jobs" element={<Home type="/jobs" />}></Route>
+          <Route path="/companies" element={<Home type="/companies" />}></Route>
           <Route
             path="/notifications"
             element={<Home type="/notifications" />}
           ></Route>
-          <Route
-            path="/profile"
-            element={<Home type="/profile" />}
-          ></Route>
-          <Route
-            path="/saved"
-            element={<Home type="/saved" />}
-          ></Route>
+          <Route path="/profile" element={<Home type="/profile" />}></Route>
+          <Route path="/saved" element={<Home type="/saved" />}></Route>
           <Route
             path="/qualifications"
             element={<Home type="/qualifications" />}
           ></Route>
           <Route
             path="/contact-info"
-            element={<Home type="/contact-info"/>}
+            element={<Home type="/contact-info" />}
           ></Route>
 
           {/* Employer */}
@@ -63,9 +51,22 @@ function App() {
             path="/employer-register"
             element={<EmployerLoginSignUp type="/employer-register" />}
           ></Route>
-          <Route path="/employer-home" element={<Navigate to="/employer-jobs"/>}></Route>
-          <Route path="/employer-jobs" element={<EmployerHome type="/employer-jobs"/>}></Route>
-          <Route path="/candidates" element={<EmployerHome type="/candidates"/>}></Route>
+          <Route
+            path="/employer-home"
+            element={<Navigate to="/employer-jobs" />}
+          ></Route>
+          <Route
+            path="/employer-jobs"
+            element={<EmployerHome type="/employer-jobs" />}
+          ></Route>
+          <Route
+            path="/candidates"
+            element={<EmployerHome type="/candidates" />}
+          ></Route>
+          <Route
+            path="/employer-info"
+            element={<EmployerHome type="/employer-info" />}
+          ></Route>
         </Routes>
       </Router>
     </div>
