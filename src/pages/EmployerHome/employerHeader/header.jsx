@@ -69,28 +69,35 @@ const EmployerHeader = () => {
                     setModel(!model);
                   }}
                 >
-                  <IoMdSettings className="text-2xl"/>
+                  <IoMdSettings className="text-2xl" />
                   Employer settings
                 </div>
                 <div
-                className="w-[100%] px-6 py-3 items-center font-semibold text-lg flex gap-3 cursor-pointer hover:bg-[#d8fffc] hover:text-[#015f4d]"
-                onClick={() => navigate("/employer")}
-              >
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                Sign out
-              </div>
+                  className="w-[100%] px-6 py-3 items-center font-semibold text-lg flex gap-3 cursor-pointer hover:bg-[#d8fffc] hover:text-[#015f4d]"
+                  onClick={() => navigate("/employer")}
+                >
+                  <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                  Sign out
+                </div>
               </div>
             </div>
             {/* // After media query */}
             <div className="w-auto h-auto rounded-md absolute top-20 right-0 border border-[#015f4d] bg-white shadow-md shadow-slate-400 z-20 hidden max-lg:block">
               <div className="absolute top-[-11px] border-l border-t border-[#015f4d] right-8 rotate-[45deg] w-[20px] h-[20px] bg-white z-0"></div>
               <div className="w-[100%] py-4 text-lg flex flex-col max-md:text-sm">
-                <div className="px-6 flex gap-3 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]">
+                <div
+                  className="px-6 flex gap-3 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]"
+                  onClick={() => {
+                    handleNavigate("/employer-jobs");
+                    setModel(!model);
+                  }}
+                >
                   <i class="fa-solid fa-briefcase"></i>Jobs
                 </div>
                 <div
                   className="px-6 flex gap-3 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]"
-                  onClick={() => handleNavigate("/candidates")}
+                  onClick={() =>{ handleNavigate("/candidates");
+                  setModel(!model)}}
                 >
                   <i class="fa-solid fa-building"></i>Candidates
                 </div>
@@ -101,7 +108,8 @@ const EmployerHeader = () => {
                     setModel(!model);
                   }}
                 >
-                 <IoMdSettings className="text-lg"/>settings
+                  <IoMdSettings className="text-lg" />
+                  settings
                 </div>
               </div>
               <div className="w-[100%] py-2 font-semibold text-[#015f4d] text-lg border-t border-gray-600 flex gap-3 justify-center items-center cursor-pointer hover:bg-[#d8fffc] max-md:text-sm">
