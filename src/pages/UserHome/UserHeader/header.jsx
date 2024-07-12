@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [model, setModel] = useState(false);
-  const [line, setLine] = useState("/jobs");
+  const [line, setLine] = useState("/employer-jobs");
 
   const location = useLocation();
 

@@ -49,7 +49,7 @@ const UserLoginSignUp = () => {
           <div className="flex border-l pl-4 border-gray-500 max-md:pl-3">
             <button
               className=" flex justify-center items-center gap-2 font-bold text-[#015f4d] hover:border-b-2 hover:border-[#18b1a6] max-md:text-sm"
-              onClick={() => navigate("/employee")}
+              onClick={() => navigate("/employer")}
             >
               {" "}
               For Employers

@@ -12,6 +12,7 @@ function App() {
   return (
     <div>
       <Router>
+        {/* job seeker */}
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route
@@ -22,16 +23,6 @@ function App() {
             path="/register"
             element={<UserLoginSignUp type="/register" />}
           ></Route>
-          <Route path="/employee" element={<Navigate to="/employer-login" />} />
-          <Route
-            path="/employer-login"
-            element={<EmployerLoginSignUp type="/employer-login" />}
-          ></Route>
-          <Route
-            path="/employer-register"
-            element={<EmployerLoginSignUp type="/employer-register" />}
-          ></Route>
-
           <Route path="/home" element={<Navigate to="/jobs"/>}></Route>
           <Route
             path="/jobs"
@@ -61,7 +52,20 @@ function App() {
             path="/contact-info"
             element={<Home type="/contact-info"/>}
           ></Route>
-          <Route path="/employer-home" element={<EmployerHome/>}></Route>
+
+          {/* Employer */}
+          <Route path="/employer" element={<Navigate to="/employer-login" />} />
+          <Route
+            path="/employer-login"
+            element={<EmployerLoginSignUp type="/employer-login" />}
+          ></Route>
+          <Route
+            path="/employer-register"
+            element={<EmployerLoginSignUp type="/employer-register" />}
+          ></Route>
+          <Route path="/employer-home" element={<Navigate to="/employer-jobs"/>}></Route>
+          <Route path="/employer-jobs" element={<EmployerHome type="/employer-jobs"/>}></Route>
+          <Route path="/candidates" element={<EmployerHome type="/candidates"/>}></Route>
         </Routes>
       </Router>
     </div>
