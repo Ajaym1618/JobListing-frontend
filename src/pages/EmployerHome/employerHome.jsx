@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import EmployerHeader from "./EmployerHeader/header";
 import { useLocation } from "react-router-dom";
 import Jobs from "./PostingJobs/jobs";
 import Candidates from "./Candidates/candidates";
 import EmployerInfo from "./EmployerInfo/employerInfo";
+import EmployerHeader from "./EmployerHeader/header";
 
 const EmployerHome = () => {
   const [JC, setJC] = useState("Jobs");
