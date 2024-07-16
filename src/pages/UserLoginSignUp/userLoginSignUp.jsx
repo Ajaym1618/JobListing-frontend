@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import temp from "../../assets/laptop-screen.gif";
-import SignUp from "./userSignUp"
+import SignUp from "./userSignUp";
 import Login from "./userLogin";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ExportOutlined } from "@ant-design/icons";

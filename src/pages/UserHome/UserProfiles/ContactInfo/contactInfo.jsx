@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import {useSelector} from 'react-redux';
 
 const ContactInfo = () => {
 
+  const userData = useSelector(state=> state.getData)
+
   const [userContact, setUserContact] = useState({
-    contactFullName:"",
-    contactPhoneNo:"",
+    contactFullName:userData?.userSignEmail,
+    contactPhoneNo:userData?.userSignMobileNo,
     contactCountry:"",
     contactStreet:"",
     contactCity:"",
     contactPincode:""
   })
+
+
 
   // handling the data entered by the user
   const handleUserContact = (e) =>{

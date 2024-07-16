@@ -1,7 +1,8 @@
+import { ToastContainer } from "react-toastify";
 import EmployerHome from "./pages/EmployerHome/employerHome";
 import EmployerLoginSignUp from "./pages/EmployerLoginSignUp/employerLoginSignUp";
 import Home from "./pages/UserHome/Home";
-import UserLoginSignUp from "./pages/UserLoginSignUp_/userLoginSignUp";
+import UserLoginSignUp from "./pages/UserLoginSignUp/userLoginSignUp";
 import {
   BrowserRouter as Router,
   Routes,
@@ -68,6 +69,7 @@ function App() {
             element={<EmployerHome type="/employer-info" />}
           ></Route>
         </Routes>
+        <ToastContainer/>
       </Router>
     </div>
   );

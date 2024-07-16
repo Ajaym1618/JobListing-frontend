@@ -4,12 +4,22 @@ import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
 import EmployerNotifications from "../EmployerNotifications/employerNotifications";
+import { toast } from "react-toastify";
+import { getEmployData, InitializeApi } from "../../../api";
+import { setEmployData } from "../../../store/EmploySlices/dataSlice";
+import {useSelector, useDispatch} from 'react-redux';
+
 const EmployerHeader = () => {
   const [userModel, setUserModel] = useState(false);
   const [notifyModel, setNotifyModel] = useState(false);
   const [line, setLine] = useState("");
 
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const employData = useSelector(state=>state.employData)
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     setLine(location.pathname);
@@ -20,7 +30,34 @@ const EmployerHeader = () => {
     setLine(e);
   };
 
-  const navigate = useNavigate();
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    toast.success("Logout successful!")
+    navigate("/")
+  } 
+
+
+  const getData = async() => {
+    try {
+      const response = await getEmployData();
+      console.log(response.data); 
+      dispatch(setEmployData(response.data.user))
+      console.log("data",employData);
+    }
+    catch(err){
+      console.error('Error fetching user data:', err);
+    }
+  }
+
+  useEffect(()=>{
+    InitializeApi();
+    getData();
+  },[])
+
+
+
+  
   return (
     <div className="w-[100%] h-[12vh] flex justify-between items-center py-2 px-6 bg-white shadow-sm shadow-slate-200 ">
       <div className="w-[100%] flex items-center justify-start gap-10 px-8 font-semibold max-lg:px-0">
@@ -76,7 +113,7 @@ const EmployerHeader = () => {
             <div className="w-auto h-auto rounded-md absolute top-20 right-0 border border-[#015f4d] bg-white shadow-md shadow-slate-400 max-lg:hidden">
               <div className="absolute top-[-11px] border-l border-t border-[#015f4d] right-8 rotate-[45deg] w-[20px] h-[20px] bg-white z-30"></div>
               <div className="w-[100%] py-4 text-lg flex flex-col">
-                <div className="font-semibold px-6 py-2">Company name</div>
+                <div className="font-semibold px-6 py-2">{employData?.employerSignCompanyName}</div>
                 <div
                   className=" flex gap-2 px-5 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]"
                   onClick={() => {
@@ -89,7 +126,7 @@ const EmployerHeader = () => {
                 </div>
                 <div
                   className="w-[100%] px-6 py-3 items-center font-semibold text-lg flex gap-3 cursor-pointer hover:bg-[#d8fffc] hover:text-[#015f4d]"
-                  onClick={() => navigate("/employer")}
+                  onClick={handleLogOut}
                 >
                   <i class="fa-solid fa-arrow-right-from-bracket"></i>
                   Sign out
@@ -129,7 +166,7 @@ const EmployerHeader = () => {
                   settings
                 </div>
               </div>
-              <div className="w-[100%] py-2 font-semibold text-[#015f4d] text-lg border-t border-gray-600 flex gap-3 justify-center items-center cursor-pointer hover:bg-[#d8fffc] max-md:text-sm">
+              <div className="w-[100%] py-2 font-semibold text-[#015f4d] text-lg border-t border-gray-600 flex gap-3 justify-center items-center cursor-pointer hover:bg-[#d8fffc] max-md:text-sm" onClick={handleLogOut}>
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 Sign out
               </div>

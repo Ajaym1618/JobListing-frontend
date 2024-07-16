@@ -1,8 +1,12 @@
 import React from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { BiSolidPencil } from "react-icons/bi";
+import {useSelector} from 'react-redux';
 
 const EmployerInfo = () => {
+
+  const employData = useSelector(state=>state.employData)
+
   return (
     <div className="w-[100%] h-[88vh] py-8 px-20 max-md:px-5">
       <div className="w-full h-auto px-3 py-3 flex flex-col gap-8 bg-white rounded-xl shadow-md shadow-slate-600">
@@ -15,21 +19,21 @@ const EmployerInfo = () => {
             <div className="w-full h-auto flex pb-8 justify-between items-center border-b-2  border-gray-300 max-sm:block max-sm:pb-4">
               <h1 className="w-[50%] max-sm:pb-2">Name</h1>
               <div className="w-full flex justify-between">
-                <h1>Employee name</h1>
+                <h1 className="font-semibold">{employData?.employerSignName}</h1>
                 <BiSolidPencil className="text-2xl text-[#015f4d] cursor-pointer" />
               </div>
             </div>
             <div className="w-full h-auto flex py-8 justify-between items-center border-b-2  border-gray-300 max-sm:block max-sm:pb-4">
               <h1 className="w-[50%] max-sm:pb-2">Email</h1>
               <div className="w-full flex justify-between">
-                <h1>Employee email</h1>
+                <h1 className="font-semibold">{employData?.employerSignEmail}</h1>
                 <BiSolidPencil className="text-2xl text-[#015f4d] cursor-pointer" />
               </div>
             </div>
             <div className="w-full h-auto flex pt-8 justify-between items-center max-sm:block max-sm:pt-4">
               <h1 className="w-[50%] max-sm:pb-2">Phone</h1>
               <div className="w-full flex justify-between">
-                <h1>Phone no</h1>
+                <h1 className="font-semibold">{employData?.employerSignMobileNo}</h1>
                 <BiSolidPencil className="text-2xl text-[#015f4d] cursor-pointer" />
               </div>
             </div>

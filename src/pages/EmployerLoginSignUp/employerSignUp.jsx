@@ -1,34 +1,54 @@
 import React, { useState } from "react";
 import usePasswordToggle from "../../hooks/usePasswordToggle";
 import Button from "../../components/Button";
+import { employerSignUpAPICall } from "../../api";
+import { useNavigate } from "react-router-dom";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import { setEmploySignUpData, clearSetEmploySignUpData } from "../../store/EmploySlices/signUpSlice";
+import {useSelector, useDispatch} from 'react-redux';
 
 const EmployerSignUp = () => {
   const [passwordType, PasswordIcon] = usePasswordToggle();
   const [confirmPasswordType, ConfirmPasswordIcon] = usePasswordToggle();
+  const navigate = useNavigate();
 
-  // state to store the entered data
-  const [employSignUpData, setEmploySignUpData] = useState({
-    employerSignName: "",
-    employerSignCompanyName: "",
-    designation: "",
-    noOfEmployees: "",
-    employerSignEmail: "",
-    employerSignPassword: "",
-    employerSignConfirmPassword: "",
-    employerSignMobileNo: "",
-  });
+  const employSignUpData = useSelector(state=>state.employSignUp);
+  const dispatch = useDispatch();
+
+  
 
   // handling the data entered by the user
   const handleEmploySignUpData = (e) => {
     const { id, value } = e.target;
-    setEmploySignUpData((prevData) => ({ ...prevData, [id]: value }));
+    dispatch(setEmploySignUpData({ [id]: value }));
+  };
+
+  // sending data to the backend
+  const handleEmploySignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await employerSignUpAPICall(employSignUpData);
+      console.log(response);
+      dispatch(clearSetEmploySignUpData())
+      toast.success(response.data.message)
+      setTimeout(() => {
+        navigate("/employer-login");
+      }, 1000);
+    } catch (err) {
+      console.error(err);
+      toast.error("user already exist or password does'nt match")
+    }
   };
 
   // log to check the data is store or not
   console.log(employSignUpData);
 
   return (
-    <form className="w-[80%] flex flex-wrap gap-3 flex-col max-xl:gap-1 max-sm:text-sm">
+    <form
+      className="w-[80%] flex flex-wrap gap-3 flex-col max-xl:gap-1 max-sm:text-sm"
+      onSubmit={handleEmploySignUp}
+    >
       <div className="w-[100%] shrink flex flex-col gap-1">
         <input
           type="text"
@@ -112,7 +132,7 @@ const EmployerSignUp = () => {
         />
       </div>
       <div className="w-[100%] flex justify-end mt-4">
-        <Button BtName={"Register"} route={"/employer-login"} />
+        <Button BtName={"Register"}/>
       </div>
     </form>
   );
