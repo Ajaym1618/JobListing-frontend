@@ -5,7 +5,7 @@ let API;
 export const InitializeApi = () => {
   const token = localStorage.getItem("token");
   const defaultOptions = {
-    baseURL: "http://localhost:5000",
+    baseURL: "https://joblisting-backend-qfli.onrender.com",
     headers: {
       "Content-Type": "application/json",
     },
