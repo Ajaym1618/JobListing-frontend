@@ -24,13 +24,13 @@ export const InitializeApi = () => {
 
 
 // for user
-export const userSignUpAPICall = (payload) => axios.post('http://localhost:5000/signup',payload);
-export const userLoginAPICall = (payload) => axios.post('http://localhost:5000/login',payload);
+export const userSignUpAPICall = (payload) => axios.post('https://joblisting-backend-qfli.onrender.com/signup',payload);
+export const userLoginAPICall = (payload) => axios.post('https://joblisting-backend-qfli.onrender.com/login',payload);
 export const getUserData = () => API.get('/userdata');
 
 
 // for employer
 
-export const employerSignUpAPICall = (payload) => axios.post('http://localhost:5000/employersignup', payload);
-export const employerLoginAPICall = (payload) => axios.post('http://localhost:5000/employerlogin', payload);
+export const employerSignUpAPICall = (payload) => axios.post('https://joblisting-backend-qfli.onrender.com/employersignup', payload);
+export const employerLoginAPICall = (payload) => axios.post('https://joblisting-backend-qfli.onrender.com/employerlogin', payload);
 export const getEmployData = () => API.get('/employdata');
