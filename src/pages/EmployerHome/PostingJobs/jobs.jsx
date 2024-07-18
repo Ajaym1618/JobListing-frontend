@@ -70,7 +70,7 @@ const Jobs = () => {
           </div>
         </div>
       </div>
-      <div className="w-[100%] h-[60vh] py-5 flex justify-center">
+      <div className="w-[100%] h-auto py-5 flex justify-center">
         <div className="w-[90%] h-full bg-transparent rounded-xl flex flex-col gap-4 overflow-hidden max-md:w-[100%]">
           <div className="w-full flex justify-between bg-[#e6e1e1] px-8 py-3 font-semibold max-sm:hidden">
             <h1>Job title</h1>
