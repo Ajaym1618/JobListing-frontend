@@ -34,7 +34,7 @@ const EmployerHeader = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     toast.success("Logout successful!")
-    navigate("/")
+    navigate("/employer")
   } 
 
 

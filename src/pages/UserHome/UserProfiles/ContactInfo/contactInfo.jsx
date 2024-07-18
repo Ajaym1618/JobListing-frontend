@@ -16,6 +16,8 @@ const ContactInfo = () => {
     contactPincode:""
   })
 
+  const navigate = useNavigate();
+
 
 
   // handling the data entered by the user
@@ -27,7 +29,7 @@ const ContactInfo = () => {
     // log to check data stored or not
     console.log(userContact);
 
-  const navigate = useNavigate();
+  
   return (
     <div className="w-[100%] h-auto pt-3">
       <div className="w-[50%] h-auto m-auto px-6 py-4 bg-white max-lg:w-[80%] max-md:w-[100%]">
@@ -60,6 +62,7 @@ const ContactInfo = () => {
                 Phone<span className="text-[#f14c4c]">*</span>
               </label>
               <input
+                type="tel"
                 id="contactPhoneNo"
                 value={userContact.contactPhoneNo}
                 onChange={handleUserContact}

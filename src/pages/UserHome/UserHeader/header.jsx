@@ -3,9 +3,11 @@ import logo from "../../../assets/logo.png";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {getUserData, InitializeApi} from '../../../api';
+import {getUserData,getJobData, InitializeApi} from '../../../api';
 import {setUserData} from '../../../store/UserSlices/dataSlice';
 import {useSelector, useDispatch} from 'react-redux';
+import { setGetPostedJobs } from "../../../store/UserSlices/postedJobDataSlice";
+
 
 const Header = () => {
   const [model, setModel] = useState(false);
@@ -15,7 +17,6 @@ const Header = () => {
   const navigate = useNavigate();
 
   const userData = useSelector(state=>state.getData);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setLine(location.pathname);
@@ -50,6 +51,23 @@ const Header = () => {
       InitializeApi();
       getData();
     },[])
+
+    const dispatch = useDispatch();
+
+    const getDataForJobs = async () => {
+      try {
+        const response = await getJobData();
+        console.log(response.data);
+        dispatch(setGetPostedJobs(response.data[0].jobPosts));
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+  
+    useEffect(() => {
+      InitializeApi();
+      getDataForJobs();
+    }, []);
 
   return (
     <div className="w-[100%] h-[12vh] flex justify-between items-center py-2 px-6 bg-white shadow-sm shadow-slate-200 ">

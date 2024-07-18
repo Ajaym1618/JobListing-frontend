@@ -4,6 +4,7 @@ import Jobs from "./PostingJobs/jobs";
 import Candidates from "./Candidates/candidates";
 import EmployerInfo from "./EmployerInfo/employerInfo";
 import EmployerHeader from "./EmployerHeader/header";
+import GetPostData from "./PostingJobs/getPostData";
 
 const EmployerHome = () => {
   const [JC, setJC] = useState("Jobs");
@@ -20,6 +21,9 @@ const EmployerHome = () => {
       case "/employer-info":
         setJC("employerInfo");
         break;
+      case "/posting-jobs":
+        setJC("postingJobs");
+        break;
       default:
         setJC("employerJobs");
         break;
@@ -31,6 +35,7 @@ const EmployerHome = () => {
       {JC === "employerJobs" && <Jobs />}
       {JC === "candidates" && <Candidates />}
       {JC === "employerInfo" && <EmployerInfo />}
+      {JC === "postingJobs" && <GetPostData/>}
     </div>
   );
 };
