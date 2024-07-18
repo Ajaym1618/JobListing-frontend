@@ -68,7 +68,6 @@ const Saved = () => {
   console.log(filteredJobs);
 
   return (
-    //If data is not there below will be displayed
     <div className="w-[100%] h-[88vh]">
       <div className="w-[60%] m-auto py-5 max-md:w-[80%]">
         <h1 className="text-4xl font-semibold max-md:text-2xl">My jobs</h1>
@@ -100,21 +99,21 @@ const Saved = () => {
           {filteredJobs.map((job) => (
             <div
               key={job._id}
-              className="w-[50%] px-8 py-4 flex items-center justify-between h-full bg-white rounded-md shadow-md shadow-slate-600"
+              className="w-[50%] px-8 py-4 flex items-center justify-between h-full bg-white rounded-md shadow-md shadow-slate-600 max-lg:w-[60%] max-md:w-[90%] max-sm:px-4"
             >
-              <div className="flex items-center gap-5">
-                <div className="text-3xl px-2 py-2 rounded-md bg-[#ebe9e7]">
+              <div className="flex items-center gap-5 max-sm:gap-4">
+                <div className="text-3xl px-2 py-2 rounded-md bg-[#ebe9e7] max-sm:text-xl">
                   <PiBuildingOfficeDuotone className="text-[#015f4d]"/>
                 </div>
                 <div>
-                  <h1 className="text-xl font-semibold">{job.jobTitle}</h1>
-                  <h2 className="text-gray-700">{job.companyName}</h2>
-                  <h2 className="text-gray-700">{job.jobCity}</h2>
+                  <h1 className="text-xl font-semibold max-sm:text-[16px]">{job.jobTitle}</h1>
+                  <h2 className="text-gray-700 max-sm:text-sm">{job.companyName}</h2>
+                  <h2 className="text-gray-700 max-sm:text-sm">{job.jobCity}</h2>
                 </div>
               </div>
               <div className="">
                 <FaBookmark
-                  className="text-[#18b1a6] text-2xl"
+                  className="text-[#18b1a6] text-2xl max-sm:text-lg"
                   onClick={() => handleDeleteBookmark(job._id)}
                 />
               </div>
