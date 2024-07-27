@@ -8,6 +8,7 @@ import Profile from "./UserProfiles/Profiles";
 import Saved from "./Saved/saved";
 import Qualifications from "./UserProfiles/Qualifications/qualifications";
 import ContactInfo from "./UserProfiles/ContactInfo/contactInfo";
+import Apply from "./Applied/apply";
 
 const Home = () => {
   const [JC, setJC] = useState("Jobs");
@@ -36,6 +37,9 @@ const Home = () => {
       case "/contact-info":
         setJC("contactInfo");
         break;
+      case "/apply":
+        setJC("apply");
+        break;
       default:
         setJC("jobs");
         break;
@@ -52,6 +56,7 @@ const Home = () => {
       {JC === "saved" && <Saved/>}
       {JC === "qualifications" && <Qualifications/>}
       {JC === "contactInfo" && <ContactInfo/>}
+      {JC === "apply" && <Apply/>}
     </div>
   );
 };

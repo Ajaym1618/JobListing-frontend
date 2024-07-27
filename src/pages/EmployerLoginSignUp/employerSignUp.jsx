@@ -3,20 +3,21 @@ import usePasswordToggle from "../../hooks/usePasswordToggle";
 import Button from "../../components/Button";
 import { employerSignUpAPICall } from "../../api";
 import { useNavigate } from "react-router-dom";
-import {toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
-import { setEmploySignUpData, clearSetEmploySignUpData } from "../../store/EmploySlices/signUpSlice";
-import {useSelector, useDispatch} from 'react-redux';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  setEmploySignUpData,
+  clearSetEmploySignUpData,
+} from "../../store/EmploySlices/signUpSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const EmployerSignUp = () => {
   const [passwordType, PasswordIcon] = usePasswordToggle();
   const [confirmPasswordType, ConfirmPasswordIcon] = usePasswordToggle();
   const navigate = useNavigate();
 
-  const employSignUpData = useSelector(state=>state.employSignUp);
+  const employSignUpData = useSelector((state) => state.employSignUp);
   const dispatch = useDispatch();
-
-  
 
   // handling the data entered by the user
   const handleEmploySignUpData = (e) => {
@@ -30,14 +31,14 @@ const EmployerSignUp = () => {
     try {
       const response = await employerSignUpAPICall(employSignUpData);
       console.log(response);
-      dispatch(clearSetEmploySignUpData())
-      toast.success(response.data.message)
+      dispatch(clearSetEmploySignUpData());
+      toast.success(response.data.message);
       setTimeout(() => {
         navigate("/employer-login");
       }, 1000);
     } catch (err) {
       console.error(err);
-      toast.error("user already exist or password does'nt match")
+      toast.error("user already exist or password does'nt match");
     }
   };
 
@@ -132,7 +133,7 @@ const EmployerSignUp = () => {
         />
       </div>
       <div className="w-[100%] flex justify-end mt-4">
-        <Button BtName={"Register"}/>
+        <Button BtName={"Register"} />
       </div>
     </form>
   );

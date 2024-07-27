@@ -13,8 +13,8 @@ import {useDispatch, useSelector} from 'react-redux';
 const SignUp = () => {
   const [passwordType, PasswordIcon] = usePasswordToggle();
   const [confirmPasswordType, ConfirmPasswordIcon] = usePasswordToggle();
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userSignUpData = useSelector(state=>state.userSignUp);
@@ -41,9 +41,6 @@ const SignUp = () => {
       toast.error("Invalid password or user already exist");
     }
   };
-
-  // log to check data is stored or not
-  // console.log(userSignUpData);
 
   return (
       <div className="w-[80%] h-[100%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-2  max-sm:h-auto">

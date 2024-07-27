@@ -16,6 +16,7 @@ const GetPostData = () => {
   const [selectedOption3, setSelectedOption3] = useState([]);
 
   const employdata = useSelector((state) => state.employData);
+  console.log("employ", employdata);
 
   const jobTypes = [
     "Full-time",
@@ -57,6 +58,7 @@ const GetPostData = () => {
       JobOption: option,
     }));
   };
+
   const handleOptionClick2 = (option) => {
     setSelectedOption2((prevSelected) => {
       if (prevSelected.includes(option)) {
@@ -70,6 +72,7 @@ const GetPostData = () => {
       jobType: [...selectedOption2, option],
     }));
   };
+
   const handleOptionClick3 = (option) => {
     setSelectedOption3((prevSelected) => {
       if (prevSelected.includes(option)) {
@@ -89,6 +92,7 @@ const GetPostData = () => {
       prevSelected.filter((item) => item !== option)
     );
   };
+  
   const handleTagRemove2 = (option) => {
     setSelectedOption3((prevSelected) =>
       prevSelected.filter((item) => item !== option)
@@ -434,15 +438,13 @@ const GetPostData = () => {
               </div>
             </div>
             <div className="w-[100%] flex mt-4">
-              <div className="w-[40%] ">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#18b1a6] rounded-md text-white"
+                  className="w-full px-4 py-2 bg-[#18b1a6] rounded-md text-white active:scale-95 duration-150"
                 >
                   Submit
                 </button>
               </div>
-            </div>
           </form>
         </div>
         <div className="w-[100%] flex justify-center py-2 text-sm">

@@ -29,7 +29,14 @@ export const userLoginAPICall = (payload) => axios.post('https://joblisting-back
 export const getUserData = () => API.get('/userdata');
 export const bookmark = (payload) => API.post('/bookmark',payload);
 export const getBookMark = () => API.get('/getbookmark');
-export const deletedBookMark = (id) => API.delete(`/bookmark/${id}`)
+export const deletedBookMark = (id) => API.delete(`/bookmark/${id}`);
+export const contactInfo = (payload) => API.put('/contact-info', payload, {
+  headers:{"Content-Type": "multipart/form-data"}
+});
+export const contactInfoData = () => API.get('/contact-data');
+export const applyJob = (payload) => API.post('/applied',payload);
+export const qualifyInfo = (payload) => API.put('/qualification', payload);
+export const qualifyGetData = (id) => API.get('/getQualify')
 
 // for employer
 
@@ -38,5 +45,5 @@ export const employerLoginAPICall = (payload) => axios.post('https://joblisting-
 export const getEmployData = () => API.get('/employdata');
 export const jobPost = (payload) => API.post('/jobpost', payload);
 export const getJobData = () => API.get("/postedjob");
-
-export const getDataJob = () => API.get('/posted')
+export const getDataJob = () => API.get('/posted');
+export const getApplyData = () =>API.get('/applied-data');

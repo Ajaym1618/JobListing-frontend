@@ -11,7 +11,6 @@ const Login = () => {
   const [loginPassword, loginIcon] = usePasswordToggle();
   const navigate = useNavigate();
 
-
   // state for storing login data
   const [userLoginData, setUserLoginData] = useState({
     userLogEmail: "",
@@ -38,7 +37,7 @@ const Login = () => {
     }
     setTimeout(() => {
       navigate("/home");
-    }, 1000);
+    }, 500);
   }
   catch(err){
     toast.error("Invalid email or password");

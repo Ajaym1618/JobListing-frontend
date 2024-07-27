@@ -3,10 +3,20 @@ import logo from "../../../assets/logo.png";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getUserData, getJobData, InitializeApi } from "../../../api";
+import {
+  getUserData,
+  getJobData,
+  InitializeApi,
+  contactInfoData,
+  qualifyGetData,
+  getApplyData,
+} from "../../../api";
 import { setUserData } from "../../../store/UserSlices/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { setGetPostedJobs } from "../../../store/UserSlices/postedJobDataSlice";
+import { setContactInfo } from "../../../store/UserSlices/contactInfoSlice";
+import { setQualifyData } from "../../../store/UserSlices/qualificationSlice";
+import { setApplyData } from "../../../store/UserSlices/applySlice";
 
 const Header = () => {
   const [model, setModel] = useState(false);
@@ -14,12 +24,11 @@ const Header = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.getData);
-
-  useEffect(() => {
-    setLine(location.pathname);
-  }, []);
+  console.log(userData?._id);
+  const qualify = useSelector((state) => state.qualify);
 
   const handleNavigate = (e) => {
     navigate(e);
@@ -45,13 +54,6 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    InitializeApi();
-    getData();
-  }, []);
-
-  const dispatch = useDispatch();
-
   const getDataForJobs = async () => {
     try {
       const response = await getJobData();
@@ -62,9 +64,44 @@ const Header = () => {
     }
   };
 
+  const contact = async () => {
+    try {
+      const response = await contactInfoData();
+      console.log(response.data);
+      dispatch(setContactInfo(response.data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const Qualification = async () => {
+    try {
+      const response = await qualifyGetData();
+      dispatch(setQualifyData(response.data));
+      console.log("qua", qualify);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const getApply = async () => {
+    try {
+      const response = await getApplyData();
+      console.log(response.data);
+      dispatch(setApplyData(response.data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
+    setLine(location.pathname);
     InitializeApi();
+    getData();
+    contact();
     getDataForJobs();
+    Qualification();
+    getApply()
   }, []);
 
   return (
@@ -93,7 +130,7 @@ const Header = () => {
           Companies
         </div>
       </div>
-      <div className="w-[100%] flex justify-end items-center gap-10 text-2xl px-8 relative max-lg:text-xl ">
+      <div className="w-[100%] flex justify-end items-center gap-10 text-2xl px-8 relative max-lg:text-xl max-sm:px-4">
         <BellOutlined
           className={`cursor-pointer h-[80px] flex items-center ${
             line === "/notifications" ? "border-b-[3px]" : ""
@@ -133,7 +170,7 @@ const Header = () => {
                 </div>
               </div>
               <div
-                className="w-[100%] py-2 font-semibold text-[#015f4d] text-lg border-t border-gray-600 flex gap-3 justify-center items-center cursor-pointer hover:bg-[#d8fffc]"
+                className="w-[100%] py-2 font-semibold text-[#015f4d] text-lg border-t border-gray-600 flex gap-3 justify-center items-center cursor-pointer rounded-b-md hover:bg-[#d8fffc]"
                 onClick={handleLogout}
               >
                 <i className="fa-solid fa-arrow-right-from-bracket"></i>
@@ -142,7 +179,7 @@ const Header = () => {
             </div>
             {/* // After media query */}
             <div className="w-auto h-auto rounded-md absolute top-20 right-0 border border-[#015f4d] bg-white shadow-md shadow-slate-400 z-20 hidden max-lg:block">
-              <div className="absolute top-[-11px] border-l border-t border-[#015f4d] right-8 rotate-[45deg] w-[20px] h-[20px] bg-white z-0"></div>
+              <div className="absolute top-[-11px] border-l border-t border-[#015f4d] right-8 rotate-[45deg] w-[20px] h-[20px] bg-white z-0 max-sm:right-4 max-sm:top-[-10px]"></div>
               <div className="w-[100%] py-4 text-lg flex flex-col max-md:text-sm">
                 <div
                   className="px-6 flex gap-3 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]"
@@ -160,7 +197,7 @@ const Header = () => {
                     setModel(!model);
                   }}
                 >
-                  <i class="fa-solid fa-building"></i>Companies
+                  <i className="fa-solid fa-building"></i>Companies
                 </div>
                 <div
                   className="px-6 flex gap-3 py-3 items-center cursor-pointer font-semibold hover:bg-[#d8fffc] hover:text-[#015f4d]"
@@ -182,7 +219,7 @@ const Header = () => {
                 </div>
               </div>
               <div
-                className="w-[100%] py-2 font-semibold text-[#015f4d] text-lg border-t border-gray-600 flex gap-3 justify-center items-center cursor-pointer hover:bg-[#d8fffc] max-md:text-sm"
+                className="w-[100%] py-2 font-semibold text-[#015f4d] text-lg border-t border-gray-600 flex gap-3 justify-center items-center cursor-pointer rounded-b-md hover:bg-[#d8fffc] max-md:text-sm"
                 onClick={handleLogout}
               >
                 <i className="fa-solid fa-arrow-right-from-bracket"></i>

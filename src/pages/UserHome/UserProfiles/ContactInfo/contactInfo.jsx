@@ -1,35 +1,116 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
+import { contactInfo } from "../../../../api";
+import { toast } from "react-toastify";
+import { setContactInfo } from "../../../../store/UserSlices/contactInfoSlice";
+import { InitializeApi, contactInfoData } from "../../../../api";
+import { useDispatch } from "react-redux";
 
 const ContactInfo = () => {
-
-  const userData = useSelector(state=> state.getData)
-
-  const [userContact, setUserContact] = useState({
-    contactFullName:userData?.userSignEmail,
-    contactPhoneNo:userData?.userSignMobileNo,
-    contactCountry:"",
-    contactStreet:"",
-    contactCity:"",
-    contactPincode:""
-  })
+  const [file, setFile] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+ 
+  const userData = useSelector((state) => state.getData);
+  console.log(userData?._id);
+  const contactData = useSelector((state) => state.contactInfo);
+  console.log("contact", contactData);
 
-
+  console.log(file);
+  const [userContact, setUserContact] = useState({
+    contactId: userData?._id,
+    contactFullName: userData?.userSignFullName,
+    contactEmail: userData?.userSignEmail,
+    contactPhoneNo: userData?.userSignMobileNo,
+    resume: "",
+    contactCountry: "",
+    contactStreet: "",
+    contactCity: "",
+    contactPincode: "",
+  });
+  
 
   // handling the data entered by the user
-  const handleUserContact = (e) =>{
-    const {id, value} = e.target;
-    setUserContact((prevData) =>({...prevData, [id]:value}))
-  } 
+  const handleUserContact = (e) => {
+    const { id, value } = e.target;
+    setUserContact((prevData) => ({ ...prevData, [id]: value }));
+  };
 
-    // log to check data stored or not
-    console.log(userContact);
+  // log to check data stored or not
+  console.log(userContact);
 
-  
+  const handleContactData = async (e) => {
+    e.preventDefault();
+    const isDataComplete = Object.values(userContact).every(
+      (value) => value !== undefined && value !== ""
+    );
+
+    if (!isDataComplete) {
+      toast.error("Please enter all the details");
+      return;
+    }
+    try {
+      const response = await contactInfo(userContact);
+      toast.success(response.data.message);
+      contact();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const contact = async () => {
+    try {
+      const response = await contactInfoData();
+      console.log(response.data);
+      dispatch(setContactInfo(response.data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const filteredContactData = contactData.filter((data) => {
+    const filter = data.contactId === userData?._id;
+    return filter;
+  });
+
+  console.log(filteredContactData);
+
+  const updateData = () => {
+    setUserContact(
+      filteredContactData.length
+        ? filteredContactData[0]
+        : {
+            contactId: userData?._id,
+            contactFullName: userData?.userSignFullName,
+            contactEmail: userData?.userSignEmail,
+            contactPhoneNo: userData?.userSignMobileNo,
+            resume: "",
+            contactCountry: "",
+            contactStreet: "",
+            contactCity: "",
+            contactPincode: "",
+          }
+    );
+  };
+
+  useEffect(() => {
+    InitializeApi();
+    contact();
+  }, []);
+
+  useEffect(() => {
+    if(userData?._id){
+    updateData()
+  }
+  },[userData?._id]);
+
+  useEffect(() => {
+    setUserContact((prevData) => ({ ...prevData, resume: file }));
+  }, [file]);
+
   return (
     <div className="w-[100%] h-auto pt-3">
       <div className="w-[50%] h-auto m-auto px-6 py-4 bg-white max-lg:w-[80%] max-md:w-[100%]">
@@ -44,7 +125,10 @@ const ContactInfo = () => {
         </div>
         {/* getting details */}
         <div className="py-8 px-3 flex justify-between items-center border-y border-gray-300 cursor-pointer">
-          <form className="w-[80%]  flex flex-wrap gap-4 flex-col">
+          <form
+            className="w-[100%]  flex flex-wrap gap-4 flex-col"
+            onSubmit={handleContactData}
+          >
             <div className="w-[100%] shrink flex flex-col gap-1 ">
               <label htmlFor="contactFullName" className="block font-semibold">
                 Full Name<span className="text-[#f14c4c]">*</span>
@@ -52,10 +136,42 @@ const ContactInfo = () => {
               <input
                 type="text"
                 id="contactFullName"
-                value={userContact.contactFullName}
+                value={userData?.userSignFullName}
                 onChange={handleUserContact}
-                className="w-[100%] rounded-md py-2 shrink px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
+                disabled
+                className="w-[100%] bg-[#c2f1ed] rounded-md py-2 shrink px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
+            </div>
+            <div className="w-[100%] shrink flex flex-col gap-1 ">
+              <label htmlFor="contactEmail" className="block font-semibold">
+                Email<span className="text-[#f14c4c]">*</span>
+              </label>
+              <input
+                type="text"
+                id="contactEmail"
+                value={userData?.userSignEmail}
+                onChange={handleUserContact}
+                disabled
+                className="w-[100%] bg-[#c2f1ed] rounded-md py-2 shrink px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
+              />
+            </div>
+            <div className="w-auto py-4 flex flex-col gap-4">
+              <h1 className="text-xl font-semibold">Resume</h1>
+              <input
+                id="file-input"
+                type="file"
+                accept="application/pdf"
+                onChange={(e) => setFile(e.target.files[0])}
+                style={{ display: "none" }}
+              />
+              <label
+                htmlFor="file-input"
+                className="min-w-fit max-w-fit px-5 py-2 text-center text-lg text-white font-semibold rounded-md bg-[#18b1a6] active:scale-95 duration-150 cursor-pointer max-md:text-sm max-md:w-[60%]"
+              >
+                {filteredContactData[0]
+                  ? filteredContactData[0]?.resume?.slice(13)
+                  : "Upload resume"}
+              </label>
             </div>
             <div className="w-[100%] shrink flex flex-col gap-1 relative border-b">
               <label htmlFor="contactPhoneNo" className="block font-semibold">
@@ -64,9 +180,10 @@ const ContactInfo = () => {
               <input
                 type="tel"
                 id="contactPhoneNo"
-                value={userContact.contactPhoneNo}
+                value={userData?.userSignMobileNo}
                 onChange={handleUserContact}
-                className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
+                disabled
+                className="w-[100%] bg-[#c2f1ed] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>
             <div>
@@ -119,11 +236,10 @@ const ContactInfo = () => {
                 className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>
-            <div className="w-[100%] flex mt-4">
-              <div className="w-[40%] ">
-                <button className="px-4 py-2 bg-[#18b1a6] rounded-md text-white">save</button>
-                {/* <Button BtName={"Login"} route={"/Home"} /> */}
-              </div>
+            <div className="w-full flex justify-end mt-4">
+                <button type="submit" className=" w-full px-6 py-2 font-semibold text-lg bg-[#18b1a6] rounded-md text-white">
+                  save
+                </button>
             </div>
           </form>
         </div>

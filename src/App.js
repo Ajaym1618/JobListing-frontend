@@ -41,6 +41,10 @@ function App() {
             path="/contact-info"
             element={<Home type="/contact-info" />}
           ></Route>
+          <Route
+            path="/apply"
+            element={<Home type="/apply" />}
+          ></Route>
 
           {/* Employer */}
           <Route path="/employer" element={<Navigate to="/employer-login" />} />

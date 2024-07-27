@@ -45,19 +45,37 @@ const EmployerLoginSignUp = () => {
           <h2 className="text-[22px] font-semibold text-[#8892a3] max-xl:text-[18px] max-lg:text-[15px] max-sm:text-[12px]">
             Bouquet of solutions to meet all your hiring needs
           </h2>
-          <img src={temp} width={"70%"} className="max-md:hidden"/>
+          <img src={temp} width={"70%"} className="max-md:hidden" />
         </div>
         <div className="w-[100%] h-auto flex justify-center items-center max-md:pb-8">
           <div className="w-[80%] h-[100%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-4">
             <div className="shrink flex w-[100%] pb-2">
-              <div className={`w-[50%] text-center text-lg pb-3 border-b-[3px] ${emLoRe === "employerLogin" ? "border-[#18b1a6]" : "border-[#cdd3db] text-gray-500"}  cursor-pointer font-semibold`} onClick={()=>navigate("/employer-login")}>
+              <div
+                className={`w-[50%] text-center text-lg pb-3 border-b-[3px] ${
+                  emLoRe === "employerLogin"
+                    ? "border-[#18b1a6]"
+                    : "border-[#cdd3db] text-gray-500"
+                }  cursor-pointer font-semibold`}
+                onClick={() => navigate("/employer-login")}
+              >
                 Login
               </div>
-              <div className={`w-[50%] text-center text-lg pb-3 border-b-[3px] ${emLoRe === "employerLogin" ? "border-[#cdd3db] text-gray-500" : "border-[#18b1a6]"} cursor-pointer font-semibold`} onClick={()=>navigate("/employer-register")}>
+              <div
+                className={`w-[50%] text-center text-lg pb-3 border-b-[3px] ${
+                  emLoRe === "employerLogin"
+                    ? "border-[#cdd3db] text-gray-500"
+                    : "border-[#18b1a6]"
+                } cursor-pointer font-semibold`}
+                onClick={() => navigate("/employer-register")}
+              >
                 SignUp
               </div>
             </div>
-            {emLoRe === "employerLogin" ? <EmployerLogin/> : <EmployerSignUp/>}
+            {emLoRe === "employerLogin" ? (
+              <EmployerLogin />
+            ) : (
+              <EmployerSignUp />
+            )}
           </div>
         </div>
       </div>
