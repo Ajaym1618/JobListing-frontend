@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa";
-import { getEmployData, InitializeApi, jobPost } from "../../../api";
+import { getEmployData, getJobData, InitializeApi, jobPost } from "../../../api";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { setEmployData } from "../../../store/EmploySlices/dataSlice";
+import { setGetPostedJobs } from "../../../store/UserSlices/postedJobDataSlice";
 
 const GetPostData = () => {
   const navigate = useNavigate();
@@ -98,14 +99,12 @@ const GetPostData = () => {
       prevSelected.filter((item) => item !== option)
     );
   };
-  
+
   const handleTagRemove2 = (option) => {
     setSelectedOption3((prevSelected) =>
       prevSelected.filter((item) => item !== option)
     );
   };
-
-
 
   const [postingData, setPostingData] = useState({
     companyName: employdata.employerSignCompanyName,
@@ -123,9 +122,9 @@ const GetPostData = () => {
     jobMinValue: "",
     jobMaxValue: "",
     jobRate: "",
-    jobSkill:"",
-    isActive:true,
-    timeStamp:timeStamp,
+    jobSkill: "",
+    isActive: true,
+    timeStamp: timeStamp,
   });
 
   console.log(postingData);
@@ -149,26 +148,25 @@ const GetPostData = () => {
         jobArea: "",
         jobPincode: "",
         jobStreet: "",
-        jobType:[],
-        jobSchedule:[],
+        jobType: [],
+        jobSchedule: [],
         jobMinValue: "",
         jobMaxValue: "",
         jobRate: "",
-        jobSkill:""
+        jobSkill: "",
       });
       setSelectedOption1("on-site");
       setSelectedOption2([]);
       setSelectedOption3([]);
-      navigate('/employer-jobs')
+      getDataJob();
+      navigate("/employer-jobs");
     } catch (err) {
       console.error(err);
       toast.error("Error while posting");
     }
   };
 
-  useEffect(() => {
-    
-  }, [selectedOption1, selectedOption2, selectedOption3]);
+  useEffect(() => {}, [selectedOption1, selectedOption2, selectedOption3]);
 
   const getDataEmploy = async () => {
     try {
@@ -180,10 +178,20 @@ const GetPostData = () => {
     }
   };
 
-  useEffect(()=>{
+  const getDataJob = async () => {
+    try {
+      const response = await getJobData();
+      console.log(response.data);
+      dispatch(setGetPostedJobs(response.data[0].jobPosts));
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
     InitializeApi();
     getDataEmploy();
-  },[])
+  }, []);
 
   return (
     <div className="w-[100%] h-auto py-4">
@@ -194,7 +202,8 @@ const GetPostData = () => {
             className="w-30 py-2 px-2  flex items-center justify-center rounded-md cursor-pointer hover:bg-gray-200 hover:text-[#015f4d]"
             onClick={() => navigate("/employer-jobs")}
           >
-            <FaArrowLeft className=" pr-1 text-2xl" /> <span className="text-xl">Back</span>
+            <FaArrowLeft className=" pr-1 text-2xl" />{" "}
+            <span className="text-xl">Back</span>
           </div>
         </div>
         {/* getting details */}
@@ -313,6 +322,7 @@ const GetPostData = () => {
                 Pincode
               </label>
               <input
+                type="tel"
                 id="jobPincode"
                 value={postingData.jobPincode}
                 onChange={handlePostingData}
@@ -426,10 +436,10 @@ const GetPostData = () => {
                   Minimum
                 </label>
                 <input
+                  type="tel"
                   id="jobMinValue"
                   value={postingData.jobMinValue}
                   onChange={handlePostingData}
-                  type="text"
                   className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
                   placeholder="₹ 4,09,347.87"
                 />
@@ -442,7 +452,7 @@ const GetPostData = () => {
                   id="jobMaxValue"
                   value={postingData.jobMaxValue}
                   onChange={handlePostingData}
-                  type="text"
+                  type="tel"
                   className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
                   placeholder="₹ 17,01,547.61"
                 />
@@ -466,13 +476,13 @@ const GetPostData = () => {
               </div>
             </div>
             <div className="w-[100%] flex mt-4">
-                <button
-                  type="submit"
-                  className="w-full px-4 py-2 bg-[#18b1a6] rounded-md text-white active:scale-95 duration-150"
-                >
-                  Submit
-                </button>
-              </div>
+              <button
+                type="submit"
+                className="w-full px-4 py-2 bg-[#18b1a6] rounded-md text-white active:scale-95 duration-150"
+              >
+                Submit
+              </button>
+            </div>
           </form>
         </div>
         <div className="w-[100%] flex justify-center py-2 text-sm">

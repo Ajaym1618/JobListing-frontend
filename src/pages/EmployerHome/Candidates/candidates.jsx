@@ -22,7 +22,7 @@ const Candidates = () => {
   const [selectOption, setSelectOption] = useState("");
   const [selectedYear, setSelectedYear] = useState("Sort by experience");
   const [selectedOption, setSelectedOption] = useState("Sort by interest");
-  const [selectYear, setSelectYear] = useState("Fresher");
+  const [selectYear, setSelectYear] = useState("");
   const [skel, setSkel] = useState(false);
   // const [selectedYear, setSelectedYear] = useState("Experience");
   const jobPost = useSelector((state) => state.jobPost);
@@ -128,16 +128,19 @@ const Candidates = () => {
     setOpen(!open);
   };
   const handleSelectYear = (data) => {
-    if (data !== "All") {
-      setSelectYear(data);
-      setSelectedYear(data);
-      setOpen2(!open2);
-    } else {
+    if (data === "All") {
       setSelectYear("");
       setSelectedYear("All");
-      setOpen2(!open2);
+    } else {
+      setSelectYear(data);
+      setSelectedYear(data);
     }
+    setOpen2(!open2);
   };
+
+
+  
+  
   console.log(selectOption);
   console.log(selectYear);
 

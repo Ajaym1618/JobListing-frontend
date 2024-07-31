@@ -113,12 +113,9 @@ const Profile = () => {
                     <li key={i}>
                       <div className="px-4 flex flex-col gap-2 text-[#767676] max-sm:px-0">
                         <div className="flex gap-3 mt-3 max-sm:gap-1">
-                          {value?.experienceJobTitle &&
-                            (
                               <h1 className="text-md font-semibold max-sm:text-sm">
                                 {value?.experienceJobTitle}
                               </h1>
-                            ) | ""}
                           <h1 className="text-md font-medium max-sm:text-sm">
                             year of experience:{" "}
                             <span className="font-bold">
