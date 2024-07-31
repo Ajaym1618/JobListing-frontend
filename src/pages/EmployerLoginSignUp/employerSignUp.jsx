@@ -96,7 +96,6 @@ const EmployerSignUp = () => {
     }
     try {
       const response = await employerSignUpAPICall(employSignUpData);
-      console.log(response);
       dispatch(clearSetEmploySignUpData());
       setPin(true);
       setTimeout(() => {
@@ -108,9 +107,6 @@ const EmployerSignUp = () => {
       toast.error("user already exist or password does'nt match");
     }
   };
-
-  // log to check the data is store or not
-  console.log(employSignUpData);
 
   return (
     <form

@@ -14,22 +14,15 @@ const Saved = () => {
   const [saAp, setSaAp] = useState("saved");
 
   const userData = useSelector((state) => state.getData);
-
   const bookmarks = useSelector((state) => state.bookmark);
-  console.log("bookmarks details", bookmarks);
-
   const jobPost = useSelector((state) => state.jobPost);
-  console.log("postedDataSave", jobPost);
-
   const apply = useSelector((state) => state.apply);
-  console.log(apply);
 
   const dispatch = useDispatch();
 
   const getDataBookmark = async () => {
     try {
       const response = await getBookMark();
-      console.log(response.data);
       dispatch(setBookData(response.data));
     } catch (err) {
       console.error("error");
@@ -39,7 +32,6 @@ const Saved = () => {
   const handleDeleteBookmark = async (id) => {
     try {
       const response = await deletedBookMark(id);
-      console.log(response.data);
       toast.success(response.data.message);
       getDataBookmark();
     } catch (err) {
@@ -58,8 +50,6 @@ const Saved = () => {
       userData?.userSignEmail === val.applyEmail
     );
   });
-
-  console.log(applyFilter);
 
   useEffect(() => {
     InitializeApi();

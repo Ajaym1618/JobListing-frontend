@@ -23,7 +23,6 @@ const GetPostData = () => {
   const dispatch = useDispatch();
 
   const employdata = useSelector((state) => state.employData);
-  console.log("employ", employdata);
 
   const jobTypes = [
     "Full-time",
@@ -127,7 +126,6 @@ const GetPostData = () => {
     timeStamp: timeStamp,
   });
 
-  console.log(postingData);
 
   const handlePostingData = (e) => {
     const { id, value } = e.target;
@@ -171,7 +169,6 @@ const GetPostData = () => {
   const getDataEmploy = async () => {
     try {
       const response = await getEmployData();
-      console.log(response.data);
       dispatch(setEmployData(response.data.user));
     } catch (err) {
       console.error("Error fetching user data:", err);
@@ -181,7 +178,6 @@ const GetPostData = () => {
   const getDataJob = async () => {
     try {
       const response = await getJobData();
-      console.log(response.data);
       dispatch(setGetPostedJobs(response.data[0].jobPosts));
     } catch (error) {
       console.error("Error fetching user data:", error);

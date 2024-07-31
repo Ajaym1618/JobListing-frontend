@@ -77,6 +77,10 @@ function App() {
             path="/posting-jobs"
             element={<EmployerHome type="/posting-jobs" />}
           ></Route>
+          <Route
+            path="/pdf-view"
+            element={<EmployerHome type="/pdf-view" />}
+          ></Route>
         </Routes>
         <ToastContainer/>
       </Router>

@@ -13,7 +13,6 @@ const Apply = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id, companyName, jobTitle } = location.state || {};
-  console.log(id, companyName, jobTitle);
   const dispatch = useDispatch();
 
   const [pin, setPin] = useState(false);
@@ -27,8 +26,6 @@ const Apply = () => {
     return filter;
   });
 
-  console.log(filteredContactData);
-
   const filteredQualifyData =
     qualify && Array.isArray(qualify)
       ? qualify.filter((data) => {
@@ -36,7 +33,6 @@ const Apply = () => {
         })
       : [];
 
-  console.log(filteredQualifyData);
 
   const date = new Date();
   const timeStamp = date.getTime();
@@ -62,7 +58,6 @@ const Apply = () => {
   const getApply = async () => {
     try {
       const response = await getApplyData();
-      console.log(response.data);
       dispatch(setApplyData(response.data));
     } catch (err) {
       console.error(err);
@@ -84,7 +79,6 @@ const Apply = () => {
 
     try {
       const response = await applyJob(updatedApplied);
-      console.log(response.data);
       setJobApplied(true);
       getApply();
       setPin(true);

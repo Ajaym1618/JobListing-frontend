@@ -23,9 +23,6 @@ const EmployerLogin = () => {
     setEmployLoginData((prevData) => ({ ...prevData, [id]: value }));
   };
 
-  // log to check data is store or not
-  console.log(employLoginData);
-
   // sending data to backend
   const handleEmployLoginSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +30,6 @@ const EmployerLogin = () => {
       const response = await employerLoginAPICall(employLoginData);
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
-        console.log("token stored successfully");
         InitializeApi();
         setPin(true);
         setTimeout(() => {

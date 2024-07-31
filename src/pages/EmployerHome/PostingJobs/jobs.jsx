@@ -80,7 +80,6 @@ const Jobs = () => {
           )
         )
       );
-      console.log(response.data.message);
       setOpenDropdown(null);
     } catch (err) {
       console.error(err);

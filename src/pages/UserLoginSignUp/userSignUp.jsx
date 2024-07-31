@@ -98,9 +98,7 @@ const SignUp = () => {
 
     try {
       const response = await userSignUpAPICall(userSignUpData);
-      console.log("data:", response);
       dispatch(clearSetUserSignUpData());
-      console.log(response.data.message);
       setTimeout(() => {
         navigate("/login");
         toast.success(response.data.message);

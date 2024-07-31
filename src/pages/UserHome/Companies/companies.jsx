@@ -15,19 +15,14 @@ const Companies = () => {
   const [overJobs, setOverJobs] = useState("over");
 
   const companies = useSelector((state) => state.jobPost);
-  console.log(companies);
 
   const companyViewFilter = companies.filter((val)=>{
     return val.companyName === companyView.companyName
   })
 
-  console.log(companyViewFilter);
-
   const handleCompanyFilter = (e) => {
     setCompanyFilter(e.target.value.toLowerCase());
   };
-
-  console.log(companyFilter);
 
   const handleCompanyView = (id) => {
     const view = filteredCompanies.find((val) => {
@@ -36,7 +31,6 @@ const Companies = () => {
     setCompanyView(view);
     setCompanyOpen(!companyOpen);
   };
-  console.log(companyView);
 
   useEffect(() => {
     const uniqueCompanies = [];

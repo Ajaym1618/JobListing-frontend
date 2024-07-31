@@ -21,7 +21,6 @@ const Qualifications = () => {
   const [modal, setModal] = useState("");
   const userData = useSelector((state) => state.getData);
   const qualify = useSelector((state) => state.qualify);
-  console.log("q", qualify);
 
   const filteredQualify = (Array.isArray(qualify) ? qualify : [])?.filter(
     (val) => {
@@ -29,7 +28,6 @@ const Qualifications = () => {
       return filter;
     }
   );
-  console.log(filteredQualify);
 
   // state for all
 
@@ -40,7 +38,6 @@ const Qualifications = () => {
       experienceYear: "Fresher",
     },
   ]);
-  console.log(experience);
 
   const [education, setEducation] = useState([
     {
@@ -60,8 +57,6 @@ const Qualifications = () => {
     skills,
     languages,
   };
-
-  console.log(qualifications);
 
   // onChange functions
   const handleExperienceChange = (e, index) => {
@@ -102,7 +97,6 @@ const Qualifications = () => {
         experienceYear: "Fresher",
       },
     ]);
-    console.log("success");
   };
 
   const handleAddEducation = () => {
@@ -113,7 +107,6 @@ const Qualifications = () => {
         fieldOfStudy: "",
       },
     ]);
-    console.log("success");
   };
 
   const handleAddSkill = () => {
@@ -142,7 +135,6 @@ const Qualifications = () => {
     e.preventDefault();
     try {
       const response = await qualifyInfo(qualifications);
-      console.log(response.data.message);
       toast.success(response.data.message);
       Qualification();
     } catch (err) {
@@ -163,7 +155,6 @@ const Qualifications = () => {
                 },
               ]
         );
-        console.log(filteredQualify[0].experience);
       }
       if (filteredQualify && Array.isArray(filteredQualify[0].education)) {
         setEducation(
@@ -176,17 +167,14 @@ const Qualifications = () => {
                 },
               ]
         );
-        console.log(filteredQualify[0].education);
       }
       if (filteredQualify && Array.isArray(filteredQualify[0].skills)) {
         setSkills(filteredQualify[0].skills ? filteredQualify[0].skills : [""]);
-        console.log(filteredQualify[0].skills);
       }
       if (filteredQualify && Array.isArray(filteredQualify[0].languages)) {
         setLanguages(
           filteredQualify[0].languages ? filteredQualify[0].languages : [""]
         );
-        console.log(filteredQualify[0].languages);
       }
     } catch (err) {
       console.error("get experience", err);
@@ -197,7 +185,6 @@ const Qualifications = () => {
     try {
       const response = await qualifyGetData();
       dispatch(setQualifyData(response.data));
-      console.log("qua", qualify);
     } catch (err) {
       console.error(err);
     }

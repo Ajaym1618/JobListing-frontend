@@ -12,7 +12,6 @@ const Notifications = () => {
   const apply = useSelector((state) => state.apply);
   const userData = useSelector((state) => state.getData);
   const dispatch = useDispatch();
-  console.log(apply);
 
   const appliedFilter = apply.filter((val) => {
     return (
@@ -21,12 +20,9 @@ const Notifications = () => {
     );
   });
 
-  console.log(appliedFilter[0]?.preferred);
-
   const getApply = async () => {
     try {
       const response = await getApplyData();
-      console.log(response.data);
       dispatch(setApplyData(response.data));
     } catch (err) {
       console.error(err);
@@ -36,7 +32,6 @@ const Notifications = () => {
   const handleNotifyViewed = async (id, data) => {
     try {
       const response = await putNotifyApplyData(id, { viewed: data });
-      console.log(response.data.message);
       getApply();
     } catch (err) {
       console.error(err);

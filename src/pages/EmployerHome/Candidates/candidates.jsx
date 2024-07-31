@@ -11,6 +11,7 @@ import { getApplyData, putApplyData } from "../../../api";
 import { toast } from "react-toastify";
 import { setApplyData } from "../../../store/UserSlices/applySlice";
 import { Skeleton } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Candidates = () => {
   const [candidate, setCandidate] = useState();
@@ -24,7 +25,8 @@ const Candidates = () => {
   const [selectedOption, setSelectedOption] = useState("Sort by interest");
   const [selectYear, setSelectYear] = useState("");
   const [skel, setSkel] = useState(false);
-  // const [selectedYear, setSelectedYear] = useState("Experience");
+
+  const navigate = useNavigate();
   const jobPost = useSelector((state) => state.jobPost);
   const apply = useSelector((state) => state.apply);
   const employData = useSelector((state) => state.employData);
@@ -54,7 +56,6 @@ const Candidates = () => {
     )
   );
 
-  console.log("Filtered Apply Data:", filteredApplyData);
 
   useEffect(() => {
     const filteredItems = filteredApplyData.filter((val) => {
@@ -78,12 +79,9 @@ const Candidates = () => {
   }, [candidate, selectOption, filteredApplyData]);
 
   const handlePreferred = async (id, data) => {
-    console.log(`Setting preferred to ${data} for ${id}`);
     try {
       const response = await putApplyData(id, { preferred: data });
-      console.log(response.data.message);
       toast.success(response.data.message);
-      console.log(response.data);
       getDataApply();
     } catch (err) {
       console.error(err);
@@ -92,10 +90,8 @@ const Candidates = () => {
   };
 
   const handleNotPreferred = async (id, data) => {
-    console.log(`Setting preferred to ${data} for ${id}`);
     try {
       const response = await putApplyData(id, { preferred: data });
-      console.log(response.data.message);
       toast.success(response.data.message);
       getDataApply();
     } catch (err) {
@@ -110,12 +106,10 @@ const Candidates = () => {
     setUserView(view);
     setOpenView(!openView);
   };
-  console.log(userView);
 
   const getDataApply = async () => {
     try {
       const response = await getApplyData();
-      console.log(response.data);
       dispatch(setApplyData(response.data));
     } catch (err) {
       console.error(err);
@@ -138,11 +132,6 @@ const Candidates = () => {
     setOpen2(!open2);
   };
 
-
-  
-  
-  console.log(selectOption);
-  console.log(selectYear);
 
   useEffect(() => {}, [selectOption, selectYear]);
 
@@ -376,7 +365,7 @@ const Candidates = () => {
             <div className="w-[100%] flex justify-between max-sm:flex-col">
               <div className=" w-full text-4xl font-semibold max-md:text-2xl">
                 {userView?.applyFullName}
-                <div className="w-auto py-4 flex flex-col gap-4">
+                <div className="w-auto py-4 flex flex-col gap-4" onClick={()=>navigate('/pdf-view', { state: { pdf: userView?.applyResume } })}>
                   <label
                     htmlFor="file-input"
                     className=" min-w-fit max-w-fit px-4 py-1 text-center text-lg text-white font-semibold rounded-md bg-[#18b1a6] active:scale-95 duration-150 cursor-pointer max-md:text-sm max-md:w-[60%]"

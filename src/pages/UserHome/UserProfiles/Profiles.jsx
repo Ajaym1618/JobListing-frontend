@@ -23,9 +23,6 @@ const Profile = () => {
         })
       : [];
 
-  console.log(filteredQualifyData);
-  console.log(filteredContactData);
-
   // To display in the Profile
   useEffect(() => {
     if (userData && userData.userSignFullName) {

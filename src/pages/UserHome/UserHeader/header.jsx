@@ -29,7 +29,6 @@ const Header = () => {
 
   const userData = useSelector((state) => state.getData);
   const apply = useSelector((state) => state.apply);
-  console.log(userData?._id);
   const qualify = useSelector((state) => state.qualify);
 
   const handleNavigate = (e) => {
@@ -48,9 +47,7 @@ const Header = () => {
   const getData = async () => {
     try {
       const response = await getUserData();
-      console.log(response.data);
       dispatch(setUserData(response.data.user));
-      console.log("jobs", userData);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -59,7 +56,6 @@ const Header = () => {
   const getDataForJobs = async () => {
     try {
       const response = await getJobData();
-      console.log(response.data);
       dispatch(setGetPostedJobs(response.data[0].jobPosts));
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -69,7 +65,6 @@ const Header = () => {
   const contact = async () => {
     try {
       const response = await contactInfoData();
-      console.log(response.data);
       dispatch(setContactInfo(response.data));
     } catch (err) {
       console.error(err);
@@ -80,7 +75,6 @@ const Header = () => {
     try {
       const response = await qualifyGetData();
       dispatch(setQualifyData(response.data));
-      console.log("qua", qualify);
     } catch (err) {
       console.error(err);
     }
@@ -89,7 +83,6 @@ const Header = () => {
   const getApply = async () => {
     try {
       const response = await getApplyData();
-      console.log(response.data);
       dispatch(setApplyData(response.data));
     } catch (err) {
       console.error(err);

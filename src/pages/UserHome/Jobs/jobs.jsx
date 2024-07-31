@@ -47,11 +47,9 @@ const Jobs = () => {
 
   // setting the referId for the secondary div which display the info
   const [referId, setReferId] = useState("");
-  console.log(referId);
 
   // finding the one match the id
   const jobs = setPostedJobs.find((value) => value?._id === referId);
-  console.log(jobs);
 
   const handleSearchFilter = (e) => {
     setSearchFilter(e.target.value.toLowerCase());
@@ -61,12 +59,9 @@ const Jobs = () => {
     setLocationFilter(e.target.value.toLowerCase());
   };
 
-  console.log(items);
-
   const getData = async () => {
     try {
       const response = await getJobData();
-      console.log(response.data);
       dispatch(setGetPostedJobs(response.data[0].jobPosts));
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -76,7 +71,6 @@ const Jobs = () => {
   const handleBookmark = async (id) => {
     try {
       const response = await bookmark({ bookmarkId: id });
-      console.log(response.data);
       toast.success(response.data.message);
       getDataBookmark();
     } catch (err) {
@@ -87,7 +81,6 @@ const Jobs = () => {
   const handleDeleteBookmark = async (id) => {
     try {
       const response = await deletedBookMark(id);
-      console.log(response.data);
       toast.success(response.data.message);
       getDataBookmark();
     } catch (err) {
@@ -112,7 +105,6 @@ const Jobs = () => {
     );
   });
 
-  console.log(appliedFilter);
 
   const handleView = () => {
     setView(!view);
@@ -121,7 +113,6 @@ const Jobs = () => {
   const getDataBookmark = async () => {
     try {
       const response = await getBookMark();
-      console.log(response.data);
       dispatch(setBookData(response.data));
     } catch (err) {
       console.error("error");
@@ -190,7 +181,7 @@ const Jobs = () => {
                 className="w-[350px] py-4 pl-14 text-[17px] text-[#18b1a6] rounded-l-md outline-none max-lg:w-[90%] max-md:text-[12px] max-md:py-2 max-md:pl-12"
               />
             </div>
-            <div className="relative border-gray-400 max-lg:mb-2">
+            <div className="relative border-gray-400 max-lg:mb-2 max-sm:mb-0">
               <EnvironmentOutlined className="absolute text-[#18b1a6] text-xl top-[18px] left-5 max-md:top-[10px] max-md:text-sm" />
               <input
                 type="text"
@@ -235,8 +226,8 @@ const Jobs = () => {
                       tabindex="0"
                       onClick={() => handleReferAndSkel(value?._id)}
                     >
-                      <div className="h-[30px] flex items-center justify-between text-xl font-semibold overflow-hidden">
-                        <h1 className="text-[#2d2d2d]cursor-pointer hover:border-b-2 border-black">
+                      <div className="h-auto flex items-center justify-between text-xl font-semibold overflow-hidden ">
+                        <h1 className="text-[#2d2d2d] h-auto cursor-pointer hover:border-b-2 border-black break-all">
                           {value?.jobTitle}
                         </h1>
                         <button>
@@ -297,7 +288,7 @@ const Jobs = () => {
                       <div className="w-[600px] h-[95vh] py-6 bg-white rounded-md border-2 border-[#d4d2d0] sticky top-2 max-xl:h-auto max-lg:w-[100%] max-sm:w-[100%] max-lg:relative">
                         {/* header part */}
                         <div className="shadow-md shadow-slate-300 px-6 pb-6 max-sm:text-[12px]">
-                          <h1 className="text-2xl font-semibold text-[#2d2d2d] max-sm:text-xl">
+                          <h1 className="text-2xl font-semibold text-[#2d2d2d] break-words max-sm:text-xl">
                             {jobs?.jobTitle}
                           </h1>
                           <div className="text-gray-700 text-md py-3">

@@ -30,7 +30,6 @@ const Login = () => {
     try{const response = await userLoginAPICall(userLoginData);
     if (response.status === 200) {
       localStorage.setItem("token", response.data.token); 
-      console.log("Token stored in local storage:", response.data.token);
       InitializeApi();
       setTimeout(() => {
         navigate("/home");
@@ -47,9 +46,6 @@ const Login = () => {
     console.error(err);
   }
   };
-
-  // log to check data is stored or not
-  console.log(userLoginData);
 
   return (
       <div className="w-[80%] h-[80%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-4 max-sm:h-auto">

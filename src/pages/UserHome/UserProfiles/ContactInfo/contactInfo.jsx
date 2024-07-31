@@ -16,11 +16,8 @@ const ContactInfo = () => {
   const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.getData);
-  console.log(userData?._id);
   const contactData = useSelector((state) => state.contactInfo);
-  console.log("contact", contactData);
 
-  console.log(file.name);
   const [userContact, setUserContact] = useState({
     contactId: userData?._id,
     contactFullName: userData?.userSignFullName,
@@ -39,8 +36,6 @@ const ContactInfo = () => {
     setUserContact((prevData) => ({ ...prevData, [id]: value }));
   };
 
-  // log to check data stored or not
-  console.log(userContact);
 
   const handleContactData = async (e) => {
     e.preventDefault();
@@ -64,7 +59,6 @@ const ContactInfo = () => {
   const contact = async () => {
     try {
       const response = await contactInfoData();
-      console.log(response.data);
       dispatch(setContactInfo(response.data));
     } catch (err) {
       console.error(err);
@@ -75,8 +69,6 @@ const ContactInfo = () => {
     const filter = data.contactId === userData?._id;
     return filter;
   });
-
-  console.log(filteredContactData);
 
   const updateData = () => {
     setUserContact(
@@ -110,7 +102,8 @@ const ContactInfo = () => {
   useEffect(() => {
     setUserContact((prevData) => ({ ...prevData, resume: file }));
   }, [file]);
-  console.log(filteredContactData[0]?.resume);
+
+
   return (
     <div className="w-[100%] h-auto pt-3">
       <div className="w-[50%] h-auto m-auto px-6 py-4 bg-white max-lg:w-[80%] max-md:w-[100%]">

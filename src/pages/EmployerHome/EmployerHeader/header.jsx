@@ -43,9 +43,7 @@ const EmployerHeader = () => {
   const getDataEmploy = async () => {
     try {
       const response = await getEmployData();
-      console.log(response.data);
       dispatch(setEmployData(response.data.user));
-      console.log("data", employData);
     } catch (err) {
       console.error("Error fetching user data:", err);
     }
@@ -54,9 +52,7 @@ const EmployerHeader = () => {
   const getDataApply = async () => {
     try {
       const response = await getApplyData();
-      console.log(response.data);
       dispatch(setApplyData(response.data));
-      console.log("apply", applyData);
     } catch (err) {
       console.error(err);
     }
@@ -65,7 +61,6 @@ const EmployerHeader = () => {
   const getDataJob = async () => {
     try {
       const response = await getJobData();
-      console.log(response.data);
       dispatch(setGetPostedJobs(response.data[0].jobPosts));
     } catch (error) {
       console.error("Error fetching user data:", error);
