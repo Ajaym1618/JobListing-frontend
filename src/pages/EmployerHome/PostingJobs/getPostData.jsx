@@ -326,6 +326,8 @@ const GetPostData = () => {
                 id="jobPincode"
                 value={postingData.jobPincode}
                 onChange={handlePostingData}
+                pattern="[0-9]{6}"
+                maxLength={6}
                 className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>

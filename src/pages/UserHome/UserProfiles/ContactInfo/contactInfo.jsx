@@ -246,7 +246,7 @@ const ContactInfo = () => {
                 id="contactPincode"
                 value={userContact.contactPincode}
                 onChange={handleUserContact}
-                pattern="[0-9]{10}"
+                pattern="[0-9]{6}"
                 maxlength="6"
                 className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />

@@ -47,6 +47,13 @@ const Notifications = () => {
     getApply();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getApply(); 
+    }, 1000); 
+    return () => clearInterval(interval);
+  }, [dispatch]);
+
   const showDefaultMessage =
     appliedFilter.length === 0 ||
     appliedFilter.every((item) => item.preferred === "none" || item.viewed === "false");

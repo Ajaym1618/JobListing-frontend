@@ -94,7 +94,7 @@ const Companies = () => {
             Best Companies to Work For
           </h1>
           {filteredCompanies.length > 0 ? (
-            <div className="max-w-fit min-w-fit h-auto grid grid-cols-3 gap-3 max-lg:grid-cols-2 max-md:grid-cols-1">
+            <div className="max-w-fit min-w-fit h-auto grid grid-cols-3 gap-3 max-lg:grid-cols-2 max-md:grid-cols-1 max-sm:w-[100%]">
               {items.map((Company, i) => (
                 <div
                   key={i}
