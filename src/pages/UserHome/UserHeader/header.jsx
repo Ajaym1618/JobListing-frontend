@@ -118,6 +118,14 @@ const Header = () => {
     );
   });
 
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getApply(); 
+    }, 1000); 
+    return () => clearInterval(interval);
+  }, [dispatch]);
+
   return (
     <div className="w-[100%] h-[12vh] flex justify-between items-center py-2 px-6 bg-white shadow-sm shadow-slate-200 ">
       <div className="w-[100%] flex items-center justify-start gap-10 px-8 font-semibold max-lg:px-0">
