@@ -3,7 +3,6 @@ import { Document, Page } from 'react-pdf';
 import { useLocation } from 'react-router-dom';
 import { pdfData } from '../../../api';
 import { pdfjs } from 'react-pdf';
-import '../../../pdfjsWorker';
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     'pdfjs-dist/build/pdf.worker.min.mjs',
     import.meta.url,
