@@ -33,7 +33,7 @@ const EmployerSignUp = () => {
       (value) => value !== undefined && value !== ""
     );
 
-    if(!isDataComplete){
+    if (!isDataComplete) {
       toast.error("Please enter all the details");
       return;
     }
@@ -197,6 +197,8 @@ const EmployerSignUp = () => {
           placeholder="Mobile number"
           value={employSignUpData.employerSignMobileNo}
           onChange={handleEmploySignUpData}
+          pattern="[0-9]{10}"
+          maxlength="10"
           className="w-[100%] py-2 px-3 text-[#18b1a6] text-md font-semibold out outline-[#18b1a6] border-b border-[#191919]"
         />
       </div>

@@ -7,19 +7,20 @@ import { toast } from "react-toastify";
 import { setContactInfo } from "../../../../store/UserSlices/contactInfoSlice";
 import { InitializeApi, contactInfoData } from "../../../../api";
 import { useDispatch } from "react-redux";
+import { IoMdCheckmark } from "react-icons/io";
 
 const ContactInfo = () => {
   const [file, setFile] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
- 
+
   const userData = useSelector((state) => state.getData);
   console.log(userData?._id);
   const contactData = useSelector((state) => state.contactInfo);
   console.log("contact", contactData);
 
-  console.log(file);
+  console.log(file.name);
   const [userContact, setUserContact] = useState({
     contactId: userData?._id,
     contactFullName: userData?.userSignFullName,
@@ -31,7 +32,6 @@ const ContactInfo = () => {
     contactCity: "",
     contactPincode: "",
   });
-  
 
   // handling the data entered by the user
   const handleUserContact = (e) => {
@@ -102,15 +102,15 @@ const ContactInfo = () => {
   }, []);
 
   useEffect(() => {
-    if(userData?._id){
-    updateData()
-  }
-  },[userData?._id]);
+    if (userData?._id) {
+      updateData();
+    }
+  }, [userData?._id]);
 
   useEffect(() => {
     setUserContact((prevData) => ({ ...prevData, resume: file }));
   }, [file]);
-
+  console.log(filteredContactData[0]?.resume);
   return (
     <div className="w-[100%] h-auto pt-3">
       <div className="w-[50%] h-auto m-auto px-6 py-4 bg-white max-lg:w-[80%] max-md:w-[100%]">
@@ -160,18 +160,28 @@ const ContactInfo = () => {
               <input
                 id="file-input"
                 type="file"
-                accept="application/pdf"
+                accept=".pdf,application/pdf"
                 onChange={(e) => setFile(e.target.files[0])}
                 style={{ display: "none" }}
               />
-              <label
-                htmlFor="file-input"
-                className="min-w-fit max-w-fit px-5 py-2 text-center text-lg text-white font-semibold rounded-md bg-[#18b1a6] active:scale-95 duration-150 cursor-pointer max-md:text-sm max-md:w-[60%]"
-              >
-                {filteredContactData[0]
-                  ? filteredContactData[0]?.resume?.slice(13)
-                  : "Upload resume"}
-              </label>
+              <div className="flex gap-3 items-center">
+                <label
+                  htmlFor="file-input"
+                  className="min-w-fit max-w-fit px-5 py-2 text-center text-lg text-white font-semibold rounded-md bg-[#18b1a6] active:scale-95 duration-150 cursor-pointer max-md:text-sm max-md:w-[60%]"
+                >
+                  {!filteredContactData[0]?.resume ||
+                  filteredContactData[0]?.resume === ""
+                    ? !file.name || file.name === ""
+                      ? "Upload resume"
+                      : file.name
+                    : filteredContactData[0]?.resume.slice(13)}
+                </label>
+                {file ? (
+                  <IoMdCheckmark className="text-2xl text-green-500" />
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
             <div className="w-[100%] shrink flex flex-col gap-1 relative border-b">
               <label htmlFor="contactPhoneNo" className="block font-semibold">
@@ -182,6 +192,8 @@ const ContactInfo = () => {
                 id="contactPhoneNo"
                 value={userData?.userSignMobileNo}
                 onChange={handleUserContact}
+                pattern="[0-9]{10}"
+                maxlength="10"
                 disabled
                 className="w-[100%] bg-[#c2f1ed] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
@@ -230,16 +242,22 @@ const ContactInfo = () => {
                 Pincode
               </label>
               <input
+                type="tel"
                 id="contactPincode"
                 value={userContact.contactPincode}
                 onChange={handleUserContact}
+                pattern="[0-9]{10}"
+                maxlength="6"
                 className="w-[100%] rounded-md py-2 px-3 text-md font-semibold text-[#18b1a6] outline-[#18b1a6] border border-[#191919]"
               />
             </div>
             <div className="w-full flex justify-end mt-4">
-                <button type="submit" className=" w-full px-6 py-2 font-semibold text-lg bg-[#18b1a6] rounded-md text-white">
-                  save
-                </button>
+              <button
+                type="submit"
+                className=" w-full px-6 py-2 font-semibold text-lg bg-[#18b1a6] rounded-md text-white"
+              >
+                save
+              </button>
             </div>
           </form>
         </div>

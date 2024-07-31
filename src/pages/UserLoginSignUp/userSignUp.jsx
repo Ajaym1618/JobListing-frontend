@@ -36,21 +36,21 @@ const SignUp = () => {
       (value) => value !== undefined && value !== ""
     );
 
-    if(!isDataComplete){
+    if (!isDataComplete) {
       toast.error("Please enter all the details");
       return;
     }
-  
+
     // Email validation regex pattern
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-  
+
     // Password validation regex patterns
     const minLengthPattern = /.{8,}/;
     const uppercasePattern = /[A-Z]/;
     const lowercasePattern = /[a-z]/;
     const digitPattern = /\d/;
     const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]/;
-  
+
     // Extracting data from the form
     const {
       userSignFullName,
@@ -59,13 +59,13 @@ const SignUp = () => {
       userSignConfirmPassword,
       userSignMobileNo,
     } = userSignUpData;
-  
+
     // Validate email format
     if (!emailPattern.test(userSignEmail)) {
       toast.error("Invalid email format");
       return;
     }
-  
+
     // Validate password format
     if (!minLengthPattern.test(userSignPassword)) {
       toast.error("Password must be at least 8 characters long");
@@ -84,16 +84,18 @@ const SignUp = () => {
       return;
     }
     if (!specialCharPattern.test(userSignPassword)) {
-      toast.error("Password must contain at least one special character like @, #, etc.");
+      toast.error(
+        "Password must contain at least one special character like @, #, etc."
+      );
       return;
     }
-  
+
     // Validate passwords match
     if (userSignPassword !== userSignConfirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
-  
+
     try {
       const response = await userSignUpAPICall(userSignUpData);
       console.log("data:", response);
@@ -109,8 +111,6 @@ const SignUp = () => {
       toast.error("Invalid password or user already exists");
     }
   };
-  
-  
 
   return (
     <div className="w-[80%] h-[100%] bg-white flex flex-col justify-center items-center rounded-lg shadow-slate-500 shadow-lg py-2  max-sm:h-auto">
@@ -208,6 +208,8 @@ const SignUp = () => {
             placeholder="Enter yor mobile number"
             value={userSignUpData.userSignMobileNo}
             onChange={handleUserSignUpData}
+            pattern="[0-9]{10}"
+            maxlength="10"
             className="w-[100%] rounded-md py-2 px-3 text-[#18b1a6] text-md font-semibold outline-[#18b1a6] border border-[#191919] max-[1025px]:py-1 max-md:text-sm"
           />
         </div>

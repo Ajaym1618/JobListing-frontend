@@ -172,6 +172,14 @@ const Jobs = () => {
     }, 2000);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getData(); 
+    }, 4000); 
+  
+    return () => clearInterval(interval);
+  }, [dispatch]);
+
   return (
     <div className="w-[100%] h-auto max-sm:h-[100%]">
       <div className="w-[100%] relative">
