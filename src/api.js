@@ -5,7 +5,7 @@ let API;
 export const InitializeApi = () => {
   const token = localStorage.getItem("token");
   const defaultOptions = {
-    baseURL: "http://localhost:5000",
+    baseURL: "https://joblisting-backend-qfli.onrender.com",
     headers: {
       "Content-Type": "application/json",
     },
@@ -47,8 +47,8 @@ export const timeAgo = (date) => {
 
 
 // for user
-export const userSignUpAPICall = (payload) => axios.post('http://localhost:5000/signup',payload);
-export const userLoginAPICall = (payload) => axios.post('http://localhost:5000/login',payload);
+export const userSignUpAPICall = (payload) => axios.post('https://joblisting-backend-qfli.onrender.com/signup',payload);
+export const userLoginAPICall = (payload) => axios.post('https://joblisting-backend-qfli.onrender.com/login',payload);
 export const getUserData = () => API.get('/userdata');
 export const bookmark = (payload) => API.post('/bookmark',payload);
 export const getBookMark = () => API.get('/getbookmark');
@@ -63,8 +63,8 @@ export const qualifyGetData = (id) => API.get('/getQualify')
 
 // for employer
 
-export const employerSignUpAPICall = (payload) => axios.post('http://localhost:5000/employersignup', payload);
-export const employerLoginAPICall = (payload) => axios.post('http://localhost:5000/employerlogin', payload);
+export const employerSignUpAPICall = (payload) => axios.post('https://joblisting-backend-qfli.onrender.com/employersignup', payload);
+export const employerLoginAPICall = (payload) => axios.post('https://joblisting-backend-qfli.onrender.com/employerlogin', payload);
 export const getEmployData = () => API.get('/employdata');
 export const jobPost = (payload) => API.post('/jobpost', payload);
 export const getJobData = () => API.get("/postedjob");
