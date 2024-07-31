@@ -6,6 +6,8 @@ import { applyJob, getApplyData } from "../../../api";
 import { toast } from "react-toastify";
 import { setApplyData } from "../../../store/UserSlices/applySlice";
 import { useDispatch } from "react-redux";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
 const Apply = () => {
   const navigate = useNavigate();
@@ -13,6 +15,8 @@ const Apply = () => {
   const { id, companyName, jobTitle } = location.state || {};
   console.log(id, companyName, jobTitle);
   const dispatch = useDispatch();
+
+  const [pin, setPin] = useState(false);
 
   const userData = useSelector((state) => state.getData);
   const contactData = useSelector((state) => state.contactInfo);
@@ -34,6 +38,9 @@ const Apply = () => {
 
   console.log(filteredQualifyData);
 
+  const date = new Date();
+  const timeStamp = date.getTime();
+
   const [jobApplied, setJobApplied] = useState(false);
   const [applied, setApplied] = useState({
     applyId: id,
@@ -47,6 +54,9 @@ const Apply = () => {
     applyEducation: filteredQualifyData[0]?.education,
     applySkills: filteredQualifyData[0]?.skills,
     applyLanguages: filteredQualifyData[0]?.languages,
+    preferred: "none",
+    viewed: "true",
+    timeStamp: timeStamp,
   });
 
   const getApply = async () => {
@@ -75,10 +85,13 @@ const Apply = () => {
     try {
       const response = await applyJob(updatedApplied);
       console.log(response.data);
-      toast.success(response.data.message);
       setJobApplied(true);
       getApply();
-      navigate("/jobs");
+      setPin(true);
+      setTimeout(() => {
+        navigate("/jobs");
+        toast.success(response.data.message);
+      }, 1000);
     } catch (err) {
       console.error(err);
     }
@@ -169,8 +182,15 @@ const Apply = () => {
           <div className="w-[100%] flex justify-end mt-4 max-md:mt-2 ">
             <button
               type="submit"
-              className="w-[30%] px-5 py-2 text-center text-lg text-white font-semibold rounded-md bg-[#18b1a6] active:scale-95 duration-150 cursor-pointer max-md:text-sm max-md:w-[60%]"
+              className="w-[30%] px-5 flex justify-center items-center gap-2 py-2 text-center text-lg text-white font-semibold rounded-md bg-[#18b1a6] active:scale-95 duration-150 cursor-pointer max-md:text-sm max-md:w-[60%]"
             >
+              {pin === true && (
+                <Spin
+                  indicator={
+                    <LoadingOutlined spin className="font-bold text-white" />
+                  }
+                />
+              )}
               Apply
             </button>
           </div>

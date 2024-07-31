@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import { userLoginAPICall } from "../../api";
 import { InitializeApi } from "../../api";
-import { CheckCircleOutlined } from "@ant-design/icons";
+// import { Button } from 'antd';
 import { toast } from "react-toastify";
 
 const Login = () => {
   const [loginPassword, loginIcon] = usePasswordToggle();
+  const [pin, setPin] = useState(false);
   const navigate = useNavigate();
 
   // state for storing login data
@@ -31,13 +32,15 @@ const Login = () => {
       localStorage.setItem("token", response.data.token); 
       console.log("Token stored in local storage:", response.data.token);
       InitializeApi();
-      toast.success("Login successful");
+      setTimeout(() => {
+        navigate("/home");
+        toast.success("Login successful");
+      }, 1500);
+      setPin(true)
     } else {
       console.log("Login failed:", response.data.message);
     }
-    setTimeout(() => {
-      navigate("/home");
-    }, 500);
+  
   }
   catch(err){
     toast.error("Invalid email or password");
@@ -98,7 +101,7 @@ const Login = () => {
           </div>
           <div className="w-[100%] flex justify-end mt-4">
             <div className="w-[40%] ">
-              <Button BtName={"Login"} />
+              <Button BtName={"Login"} pin={pin}/>
             </div>
           </div>
         </form>

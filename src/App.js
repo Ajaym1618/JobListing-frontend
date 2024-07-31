@@ -3,6 +3,7 @@ import EmployerHome from "./pages/EmployerHome/employerHome";
 import EmployerLoginSignUp from "./pages/EmployerLoginSignUp/employerLoginSignUp";
 import Home from "./pages/UserHome/Home";
 import UserLoginSignUp from "./pages/UserLoginSignUp/userLoginSignUp";
+import './index.css'
 import {
   BrowserRouter as Router,
   Routes,

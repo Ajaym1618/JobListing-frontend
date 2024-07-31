@@ -35,7 +35,7 @@ const EmployerHome = () => {
       {JC === "employerJobs" && <Jobs />}
       {JC === "candidates" && <Candidates />}
       {JC === "employerInfo" && <EmployerInfo />}
-      {JC === "postingJobs" && <GetPostData/>}
+      {JC === "postingJobs" && <GetPostData />}
     </div>
   );
 };

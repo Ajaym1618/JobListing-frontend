@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  SearchOutlined,
-  EnvironmentOutlined,
-  ExportOutlined,
-} from "@ant-design/icons";
+import { SearchOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import folder from "../../../assets/folders.png";
 import {
   bookmark,
@@ -11,6 +7,7 @@ import {
   getBookMark,
   InitializeApi,
   deletedBookMark,
+  timeAgo,
 } from "../../../api";
 import { setGetPostedJobs } from "../../../store/UserSlices/postedJobDataSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,15 +21,19 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 import { setBookData } from "../../../store/UserSlices/savedSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Skeleton } from "antd";
 
 const Jobs = () => {
   //state for handling search
   const [searchFilter, setSearchFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
   const [items, setItems] = useState([]);
+  const [view, setView] = useState(false);
+  const [skel, setSkel] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -95,6 +96,13 @@ const Jobs = () => {
     }
   };
 
+  const handleReferAndSkel = (id) => {
+    setReferId(id);
+    setSkel(true);
+    setTimeout(() => {
+      setSkel(false);
+    }, 1000);
+  };
 
   const appliedFilter = apply.filter((val) => {
     return (
@@ -105,6 +113,10 @@ const Jobs = () => {
   });
 
   console.log(appliedFilter);
+
+  const handleView = () => {
+    setView(!view);
+  };
 
   const getDataBookmark = async () => {
     try {
@@ -135,7 +147,8 @@ const Jobs = () => {
   useEffect(() => {
     const filteredItems = setPostedJobs.filter((val) => {
       const matchesTitle = searchFilter
-        ? val.jobTitle.toLowerCase().includes(searchFilter) || val.companyName.toLowerCase().includes(searchFilter)
+        ? val.jobTitle.toLowerCase().includes(searchFilter) ||
+          val.companyName.toLowerCase().includes(searchFilter)
         : true;
       const matchesLocation = locationFilter
         ? val.jobCity.toLowerCase().includes(locationFilter)
@@ -152,8 +165,15 @@ const Jobs = () => {
     }
   }, [searchFilter, locationFilter, setPostedJobs]);
 
+  useEffect(() => {
+    setSkel(true);
+    setTimeout(() => {
+      setSkel(false);
+    }, 2000);
+  }, []);
+
   return (
-    <div className="w-[100%] h-auto">
+    <div className="w-[100%] h-auto max-sm:h-[100%]">
       <div className="w-[100%] relative">
         <div className="w-[100%] py-6 flex justify-center">
           <form className="w-auto h-auto flex justify-center items-center bg-white rounded-md pr-4 shadow-lg shadow-slate-500 max-lg:block max-lg:w-[90%] max-lg:py-2 max-lg:pr-0">
@@ -161,18 +181,18 @@ const Jobs = () => {
               <SearchOutlined className="absolute text-[#18b1a6] text-xl top-[18px] left-5 max-md:top-[10px] max-md:text-sm" />
               <input
                 type="text"
-                placeholder="Job title, keywords, or company"
+                placeholder="Job title, company....."
                 id="companyTitle"
                 value={searchFilter}
                 onChange={handleSearchFilter}
                 className="w-[350px] py-4 pl-14 text-[17px] text-[#18b1a6] rounded-l-md outline-none max-lg:w-[90%] max-md:text-[12px] max-md:py-2 max-md:pl-12"
               />
             </div>
-            <div className="relative max-lg:border-b border-gray-400 max-lg:mb-2">
+            <div className="relative border-gray-400 max-lg:mb-2">
               <EnvironmentOutlined className="absolute text-[#18b1a6] text-xl top-[18px] left-5 max-md:top-[10px] max-md:text-sm" />
               <input
                 type="text"
-                placeholder='City, state, or "remote"'
+                placeholder="City, state....."
                 id="city"
                 value={locationFilter}
                 onChange={handleLocationFilter}
@@ -195,10 +215,15 @@ const Jobs = () => {
             Job feed
           </p>
         </div>
-        <div className="w-[100%] h-auto flex gap-5 max-lg:gap-0">
+        <div className="w-[100%] h-auto flex gap-5 max-lg:gap-0 max-lg:relative">
           {setPostedJobs.length > 0 ? (
             <>
-              <div className="w-[100%] flex flex-col gap-2 items-end py-6 relative max-lg:items-center">
+              <div
+                className={`w-[100%] flex flex-col gap-2 items-end py-6 relative ${
+                  view ? "max-lg:hidden" : ""
+                } max-lg:items-center`}
+                onClick={handleView}
+              >
                 {/* mapping div below */}
                 {items.length > 0 ? (
                   items?.map((value, i) => (
@@ -206,7 +231,7 @@ const Jobs = () => {
                       key={i}
                       className="w-[500px] h-auto rounded-md bg-white border-2 border-[#d4d2d0] py-6 px-6 cursor-pointer active:border-[#015f4d] focus:border-[#18b1a6] max-lg:w-[80%] max-md:w-[90%]"
                       tabindex="0"
-                      onClick={() => setReferId(value?._id)}
+                      onClick={() => handleReferAndSkel(value?._id)}
                     >
                       <div className="h-[30px] flex items-center justify-between text-xl font-semibold overflow-hidden">
                         <h1 className="text-[#2d2d2d]cursor-pointer hover:border-b-2 border-black">
@@ -237,6 +262,9 @@ const Jobs = () => {
                           <li>{value?.companyDescription}</li>
                         </ul>
                       </div>
+                      <div className="flex items-center text-gray-600 text-sm">
+                        Posted {timeAgo(new Date(value?.timeStamp))}
+                      </div>
                     </div>
                   ))
                 ) : (
@@ -249,149 +277,182 @@ const Jobs = () => {
               </div>
 
               {items.length > 0 && (
-                <div className="w-[100%] py-6 max-lg:hidden">
-                  {jobs && (
-                    <div className="w-[600px] h-[95vh] py-6 bg-white rounded-md border-2 border-[#d4d2d0] sticky top-0">
-                      {/* header part */}
-                      <div className="shadow-md shadow-slate-300 px-6 pb-6">
-                        <h1 className="text-2xl font-semibold text-[#2d2d2d]">
-                          {jobs?.jobTitle}
-                        </h1>
-                        <div className="text-gray-700 text-md py-3">
-                          <span className="pb-[1px] border-b border-gray-500 cursor-pointer">
-                            {jobs?.companyName} <ExportOutlined />
-                          </span>
-                          <h2 className="pt-2">{jobs?.jobCity}</h2>
-                          <h2 className="pt-2 flex items-center">
-                            <MdOutlineCurrencyRupee />
-                            {jobs?.jobMinValue} - <MdOutlineCurrencyRupee />
-                            {jobs?.jobMaxValue} a {jobs?.jobRate}
-                          </h2>
-                        </div>
-                        <div className="flex gap-4">
-                          {appliedFilter[0]?.jobApplied === true ? (
-                            <button
-                              type="button"
-                              className="py-2 px-5 flex items-center gap-2 bg-[#18b1a6] text-white rounded-md font-semibold"
-                              disabled
-                            >
-                              <IoMdCheckmarkCircleOutline className="text-lg" />
-                              Applied
-                            </button>
-                          ) : (
-                            <button
-                              className="py-2 px-6 bg-[#18b1a6] text-white rounded-md font-semibold active:scale-95 duration-150 ease-in-out"
-                              onClick={() =>
-                                navigate("/apply", {
-                                  state: {
-                                    id: jobs?._id,
-                                    companyName: jobs?.companyName,
-                                    jobTitle: jobs?.jobTitle,
-                                  },
-                                })
-                              }
-                            >
-                              Apply Now
-                            </button>
-                          )}
-                          <button className="px-4 py-2 text-xl bg-[#f3f2f1] rounded-md">
-                            {bookmarks.some(
-                              (item) => item.bookmarkId === jobs._id
-                            ) ? (
-                              <FaBookmark
-                                className="cursor-pointer text-[#18b1a6]"
-                                onClick={() => handleDeleteBookmark(jobs?._id)}
-                              />
-                            ) : (
-                              <FaRegBookmark
-                                className="cursor-pointer text-[#015f4d]"
-                                onClick={() => handleBookmark(jobs?._id)}
-                              />
-                            )}
-                          </button>
-                        </div>
+                <div
+                  className={`w-[100%] py-6 ${
+                    view ? "max-lg:block" : "max-lg:hidden"
+                  } max-lg:absolute max-lg:left-0 max-lg:px-6 max-sm:left-0 max-sm:px-3 max-sm:h-[100%]"}`}
+                >
+                  {jobs &&
+                    (skel ? (
+                      <div className="w-[620px] flex flex-col gap-2 mt-2 sticky px-3 py-3 top-2 border border-[#d4d3d8] rounded-md max-lg:w-[100%]">
+                        <Skeleton active className="w-[600px] max-lg:w-[100%]" />
+                        <Skeleton active className="w-[600px] max-lg:w-[100%]" />
+                        <Skeleton active className="w-[600px] max-lg:w-[100%]" />
+                        <Skeleton active className="w-[600px] max-lg:w-[100%]" />
+                        <Skeleton active className="w-[600px] max-lg:w-[100%]" />
                       </div>
-                      {/* Content part */}
-                      <div className="w-[100%] h-[61vh] overflow-y-scroll overscroll-x-none">
-                        <div className="w-full py-6 px-6 border-b border-[#e4e2e0]">
-                          <h1 className="text-xl font-semibold text-[#2d2d2d]">
-                            Job details
+                    ) : (
+                      <div className="w-[600px] h-[95vh] py-6 bg-white rounded-md border-2 border-[#d4d2d0] sticky top-2 max-xl:h-auto max-lg:w-[100%] max-sm:w-[100%] max-lg:relative">
+                        {/* header part */}
+                        <div className="shadow-md shadow-slate-300 px-6 pb-6 max-sm:text-[12px]">
+                          <h1 className="text-2xl font-semibold text-[#2d2d2d] max-sm:text-xl">
+                            {jobs?.jobTitle}
                           </h1>
-                          <div className="w-full flex flex-col gap-2">
-                            <div className="w-full text-md flex items-center gap-2 pt-4 font-semibold text-[#2d2d2d]">
-                              <TbBulb className="text-xl mb-1" />
-                              Skills:
-                            </div>
-                            <ul className="list-disc list-inside pl-9 break-words text-gray-700 text-sm">
-                              <li>{jobs.jobSkill}</li>
-                            </ul>
-                          </div>
-                          <div className="w-full flex flex-col gap-3">
-                            <div className="w-full text-md flex items-center gap-2 pt-4 font-semibold text-[#2d2d2d]">
-                              <GiMoneyStack className="text-xl" />
-                              Pay:
-                            </div>
-                            <div className="flex items-center pl-9 break-words text-gray-700 text-sm">
-                              <GoDotFill className="text-[9px] mr-2" />
+                          <div className="text-gray-700 text-md py-3">
+                            <span className="pb-[1px] border-b border-gray-500 cursor-pointer">
+                              {jobs?.companyName}
+                            </span>
+                            <h2 className="pt-2">{jobs?.jobCity}</h2>
+                            <h2 className="pt-2 flex items-center">
                               <MdOutlineCurrencyRupee />
-                              {jobs.jobMinValue} - <MdOutlineCurrencyRupee />
-                              {jobs.jobMaxValue} {jobs.jobRate}
-                            </div>
+                              {jobs?.jobMinValue} - <MdOutlineCurrencyRupee />
+                              {jobs?.jobMaxValue} a {jobs?.jobRate}
+                            </h2>
                           </div>
-                          <div className="w-full flex flex-col gap-3">
-                            <div className="w-full text-md flex items-center gap-3 pt-4 font-semibold text-[#2d2d2d]">
-                              <FaBriefcase className="text-md" />
-                              Job type
-                            </div>
-                            <div className="flex gap-2 items-center pl-9 break-words text-gray-700 text-sm">
-                              {jobs.jobType?.map((shift, i) => (
-                                <h1
-                                  className="px-3 py-2 bg-[#f3f2f1] rounded-md"
-                                  key={i}
+                          <div className="flex gap-4 flex-wrap">
+                            {jobs?.isActive === true ? (
+                              appliedFilter[0]?.jobApplied === true ? (
+                                <button
+                                  type="button"
+                                  className="py-2 px-5 flex items-center gap-2 bg-[#18b1a6] text-white rounded-md font-semibold"
+                                  disabled
                                 >
-                                  {shift}
-                                </h1>
-                              ))}
-                            </div>
-                          </div>
-                          <div className="w-full flex flex-col gap-3">
-                            <div className="w-full text-md flex items-center gap-2 pt-4 font-semibold text-[#2d2d2d]">
-                              <GoClockFill className="text-lg" />
-                              Shift and schedule
-                            </div>
-                            <div className="flex gap-2 items-center pl-9 break-words text-gray-700 text-sm">
-                              {jobs.jobSchedule?.map((shift, i) => (
-                                <h1
-                                  className="px-3 py-2 bg-[#f3f2f1] rounded-md"
-                                  key={i}
+                                  <IoMdCheckmarkCircleOutline className="text-lg" />
+                                  Applied
+                                </button>
+                              ) : (
+                                <button
+                                  className="py-2 px-6 bg-[#18b1a6] text-white rounded-md font-semibold active:scale-95 duration-150 ease-in-out"
+                                  onClick={() =>
+                                    navigate("/apply", {
+                                      state: {
+                                        id: jobs?._id,
+                                        companyName: jobs?.companyName,
+                                        jobTitle: jobs?.jobTitle,
+                                      },
+                                    })
+                                  }
                                 >
-                                  {shift}
-                                </h1>
-                              ))}
-                            </div>
-                          </div>
-                          <div className="w-full flex flex-col gap-3">
-                            <div className="w-full text-md flex items-center gap-2 pt-4 font-semibold text-[#2d2d2d]">
-                              <FaLocationDot className="text-lg" />
-                              Location
-                            </div>
-                            <div className="flex items-center pl-9 break-words text-gray-700 ">
-                              {jobs?.jobStreet}, {jobs?.jobArea},{" "}
-                              {jobs?.jobCity}
+                                  Apply Now
+                                </button>
+                              )
+                            ) : (
+                              <button
+                                className="py-2 px-6 bg-red-400 cursor-not-allowed text-white rounded-md font-semibold"
+                                disabled
+                              >
+                                Closed
+                              </button>
+                            )}
+                            <button className="px-4 py-2 text-xl bg-[#f3f2f1] rounded-md">
+                              {bookmarks.some(
+                                (item) => item.bookmarkId === jobs._id
+                              ) ? (
+                                <FaBookmark
+                                  className="cursor-pointer text-[#18b1a6]"
+                                  onClick={() =>
+                                    handleDeleteBookmark(jobs?._id)
+                                  }
+                                />
+                              ) : (
+                                <FaRegBookmark
+                                  className="cursor-pointer text-[#015f4d]"
+                                  onClick={() => handleBookmark(jobs?._id)}
+                                />
+                              )}
+                            </button>
+                            <div className="flex items-center text-gray-600 text-sm">
+                              Posted {timeAgo(new Date(jobs?.timeStamp))}
                             </div>
                           </div>
                         </div>
-                        <div className="W-full py-6 px-6">
-                          <h1 className="text-xl pb-2 font-semibold text-[#2d2d2d]">
-                            Job description
-                          </h1>
-                          <div className="w-full break-words indent-4">
-                            {jobs?.companyDescription}
+                        {/* Content part */}
+                        <div className="w-[100%] h-[61vh] overflow-y-scroll overscroll-x-none max-lg:h-full">
+                          <div className="w-full py-6 px-6 border-b border-[#e4e2e0]">
+                            <h1 className="text-xl font-semibold text-[#2d2d2d] max-sm:text-lg">
+                              Job details
+                            </h1>
+                            <div className="w-full flex flex-col gap-2">
+                              <div className="w-full text-md flex items-center gap-2 pt-4 font-semibold text-[#2d2d2d]">
+                                <TbBulb className="text-xl mb-1" />
+                                Skills:
+                              </div>
+                              <ul className="list-disc list-inside pl-9 break-words text-gray-700 text-sm max-sm:text-[12px]">
+                                <li>{jobs.jobSkill}</li>
+                              </ul>
+                            </div>
+                            <div className="w-full flex flex-col gap-3">
+                              <div className="w-full text-md flex items-center gap-2 pt-4 font-semibold text-[#2d2d2d]">
+                                <GiMoneyStack className="text-xl" />
+                                Pay:
+                              </div>
+                              <div className="flex items-center pl-9 break-words text-gray-700 text-sm max-sm:text-[12px]">
+                                <GoDotFill className="text-[9px] mr-2" />
+                                <MdOutlineCurrencyRupee />
+                                {jobs.jobMinValue} - <MdOutlineCurrencyRupee />
+                                {jobs.jobMaxValue} {jobs.jobRate}
+                              </div>
+                            </div>
+                            <div className="w-full flex flex-col gap-3">
+                              <div className="w-full text-md flex items-center gap-3 pt-4 font-semibold text-[#2d2d2d]">
+                                <FaBriefcase className="text-md" />
+                                Job type
+                              </div>
+                              <div className="flex gap-2 flex-wrap items-center pl-9 break-words text-gray-700 text-sm">
+                                {jobs.jobType?.map((shift, i) => (
+                                  <h1
+                                    className="px-3 py-2 bg-[#f3f2f1] rounded-md max-sm:text-[12px]"
+                                    key={i}
+                                  >
+                                    {shift}
+                                  </h1>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="w-full flex flex-col gap-3">
+                              <div className="w-full text-md flex items-center gap-2 pt-4 font-semibold text-[#2d2d2d] ">
+                                <GoClockFill className="text-lg" />
+                                Shift and schedule
+                              </div>
+                              <div className="flex gap-2 flex-wrap items-center pl-9 break-words text-gray-700 text-sm max-sm:text-[12px]">
+                                {jobs.jobSchedule?.map((shift, i) => (
+                                  <h1
+                                    className="px-3 py-2 bg-[#f3f2f1] rounded-md max-sm:text-[12px]"
+                                    key={i}
+                                  >
+                                    {shift}
+                                  </h1>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="w-full flex flex-col gap-3">
+                              <div className="w-full text-md flex items-center gap-2 pt-4 font-semibold text-[#2d2d2d]">
+                                <FaLocationDot className="text-lg" />
+                                Location
+                              </div>
+                              <div className="flex items-center pl-9 break-words text-gray-700 max-sm:text-[12px]">
+                                {jobs?.jobStreet}, {jobs?.jobArea},{" "}
+                                {jobs?.jobCity}
+                              </div>
+                            </div>
                           </div>
+                          <div className="W-full py-6 px-6">
+                            <h1 className="text-xl pb-2 font-semibold text-[#2d2d2d] max-sm:text-lg">
+                              Job description
+                            </h1>
+                            <div className="w-full break-words indent-4 text-gray-700 max-sm:text-[12px]">
+                              {jobs?.companyDescription}
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className="hidden max-lg:block max-lg:absolute top-3 right-3 text-3xl max-sm:text-xl"
+                          onClick={() => setView(!view)}
+                        >
+                          <IoMdClose />
                         </div>
                       </div>
-                    </div>
-                  )}
+                    ))}
                 </div>
               )}
             </>

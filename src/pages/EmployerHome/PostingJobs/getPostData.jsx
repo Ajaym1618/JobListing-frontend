@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa";
-import { jobPost } from "../../../api";
+import { getEmployData, InitializeApi, jobPost } from "../../../api";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setEmployData } from "../../../store/EmploySlices/dataSlice";
 
 const GetPostData = () => {
   const navigate = useNavigate();
@@ -14,6 +15,11 @@ const GetPostData = () => {
   const [selectedOption1, setSelectedOption1] = useState("on-site");
   const [selectedOption2, setSelectedOption2] = useState([]);
   const [selectedOption3, setSelectedOption3] = useState([]);
+
+  const date = new Date();
+  const timeStamp = date.getTime();
+
+  const dispatch = useDispatch();
 
   const employdata = useSelector((state) => state.employData);
   console.log("employ", employdata);
@@ -99,8 +105,11 @@ const GetPostData = () => {
     );
   };
 
+
+
   const [postingData, setPostingData] = useState({
     companyName: employdata.employerSignCompanyName,
+    noOfEmployers: employdata.noOfEmployees,
     companyIndustry: "",
     companyDescription: "",
     jobTitle: "",
@@ -114,6 +123,9 @@ const GetPostData = () => {
     jobMinValue: "",
     jobMaxValue: "",
     jobRate: "",
+    jobSkill:"",
+    isActive:true,
+    timeStamp:timeStamp,
   });
 
   console.log(postingData);
@@ -147,6 +159,7 @@ const GetPostData = () => {
       setSelectedOption1("on-site");
       setSelectedOption2([]);
       setSelectedOption3([]);
+      navigate('/employer-jobs')
     } catch (err) {
       console.error(err);
       toast.error("Error while posting");
@@ -156,6 +169,21 @@ const GetPostData = () => {
   useEffect(() => {
     
   }, [selectedOption1, selectedOption2, selectedOption3]);
+
+  const getDataEmploy = async () => {
+    try {
+      const response = await getEmployData();
+      console.log(response.data);
+      dispatch(setEmployData(response.data.user));
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+    }
+  };
+
+  useEffect(()=>{
+    InitializeApi();
+    getDataEmploy();
+  },[])
 
   return (
     <div className="w-[100%] h-auto py-4">

@@ -21,12 +21,14 @@ import { setApplyData } from "../../../store/UserSlices/applySlice";
 const Header = () => {
   const [model, setModel] = useState(false);
   const [line, setLine] = useState("/employer-jobs");
+  const [notificationsViewed, setNotificationsViewed] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.getData);
+  const apply = useSelector((state) => state.apply);
   console.log(userData?._id);
   const qualify = useSelector((state) => state.qualify);
 
@@ -94,6 +96,11 @@ const Header = () => {
     }
   };
 
+  const handleNotificationsClick = () => {
+    handleNavigate("/notifications");
+    setNotificationsViewed(true);
+  };
+
   useEffect(() => {
     setLine(location.pathname);
     InitializeApi();
@@ -101,8 +108,15 @@ const Header = () => {
     contact();
     getDataForJobs();
     Qualification();
-    getApply()
+    getApply();
   }, []);
+
+  const appliedFilter = apply.filter((val) => {
+    return (
+      userData.userSignFullName === val.applyFullName &&
+      userData.userSignEmail === val.applyEmail
+    );
+  });
 
   return (
     <div className="w-[100%] h-[12vh] flex justify-between items-center py-2 px-6 bg-white shadow-sm shadow-slate-200 ">
@@ -131,12 +145,21 @@ const Header = () => {
         </div>
       </div>
       <div className="w-[100%] flex justify-end items-center gap-10 text-2xl px-8 relative max-lg:text-xl max-sm:px-4">
-        <BellOutlined
-          className={`cursor-pointer h-[80px] flex items-center ${
-            line === "/notifications" ? "border-b-[3px]" : ""
-          } border-[#015f4d] hover:text-[#015f4d]`}
-          onClick={() => handleNavigate("/notifications")}
-        />
+        <div className="relative">
+          <BellOutlined
+            className={`cursor-pointer h-[80px] flex items-center ${
+              line === "/notifications" ? "border-b-[3px]" : ""
+            } border-[#015f4d] hover:text-[#015f4d]`}
+            onClick={handleNotificationsClick}
+          />
+          {!notificationsViewed&&appliedFilter.length > 0 &&
+            appliedFilter.map(
+              (val) =>
+                val?.preferred !== "none" && val?.viewed !=="false" &&(
+                  <div className="w-2 h-2 rounded-[50%] bg-red-600 absolute top-7 right-0"></div>
+                )
+            )}
+        </div>
         <UserOutlined
           className="cursor-pointer hover:text-[#015f4d]"
           onClick={() => setModel(!model)}

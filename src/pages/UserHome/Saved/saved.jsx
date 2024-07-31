@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "../../../components/Button";
 import bookmark from "../../../assets/bookmark.png";
 import tableSheet from "../../../assets/tablesheet.png";
-import { deletedBookMark, getBookMark, InitializeApi } from "../../../api";
+import { deletedBookMark, getBookMark, InitializeApi, timeAgo } from "../../../api";
 import { setBookData } from "../../../store/UserSlices/savedSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { FaBookmark } from "react-icons/fa";
@@ -65,6 +65,8 @@ const Saved = () => {
     InitializeApi();
     getDataBookmark();
   }, []);
+
+
 
   return (
     <div className="w-[100%] h-[88vh]">
@@ -150,9 +152,9 @@ const Saved = () => {
               {applyFilter.map((apply) => (
                 <div
                   key={apply._id}
-                  className="w-[50%] px-8 py-4 flex items-center justify-between h-full bg-white rounded-md shadow-md shadow-slate-600 cursor-pointer max-lg:w-[60%] max-md:w-[90%] max-sm:px-4"
+                  className="w-[50%] px-8 py-4 flex items-center justify-between h-full bg-white rounded-md shadow-md shadow-slate-600 cursor-pointer max-lg:w-[60%] max-md:w-[90%] max-sm:px-4 max-lg:flex-col max-sm:items-start max-lg:gap-3 max-lg:items-start"
                 >
-                  <div className="flex items-center gap-5 max-sm:gap-4">
+                  <div className="flex items-center gap-5 max-sm:gap-4 max-lg:justify-start ">
                     <div className="text-6xl px-2 py-2 rounded-md bg-[#c2f1ed] max-sm:text-xl">
                       <PiBuildingOfficeDuotone className="text-[#015f4d]" />
                     </div>
@@ -168,9 +170,12 @@ const Saved = () => {
                       </h2>
                     </div>
                   </div>
-                  <div className="cursor-pointer flex items-center gap-2">
-                    <IoMdCheckmarkCircleOutline className="text-xl text-green-600" />
-                    Applied
+                  <div className="w-[100%] cursor-pointer flex items-center gap-2 justify-between px-6 max-lg:px-0 max-sm:pt-2">
+                    <div className="max-sm:text-sm pl-20 max-xl:pl-0">{timeAgo(new Date(apply.timeStamp))}</div>
+                    <div className="flex items-center gap-1">
+                      <IoMdCheckmarkCircleOutline className="text-xl text-green-600" />
+                      Applied
+                    </div>
                   </div>
                 </div>
               ))}

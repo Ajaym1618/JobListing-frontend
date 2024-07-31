@@ -3,13 +3,12 @@ import usePasswordToggle from "../../hooks/usePasswordToggle";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { employerLoginAPICall, InitializeApi } from "../../api";
-import { CheckCircleOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EmployerLogin = () => {
   const [passwordType, PasswordIcon] = usePasswordToggle();
-
+  const [pin, setPin] = useState(false);
   const navigate = useNavigate();
 
   // state for storing data entered by the user
@@ -36,13 +35,15 @@ const EmployerLogin = () => {
         localStorage.setItem("token", response.data.token);
         console.log("token stored successfully");
         InitializeApi();
-        toast.success("Login successful!");
+        setPin(true);
+        setTimeout(() => {
+          navigate("/employer-home");
+          toast.success("Login successful!");
+        }, 1500);
       } else {
         console.log("Login failed:", response.data.message);
       }
-      setTimeout(() => {
-        navigate("/employer-home");
-      }, 1000);
+      
     } catch (err) {
       toast.error("Invalid email or password");
     }
@@ -75,7 +76,7 @@ const EmployerLogin = () => {
         <span className="absolute top-2 right-3">{PasswordIcon}</span>
       </div>
       <div className="w-[100%] flex justify-end mt-4">
-        <Button BtName={"Login"} />
+        <Button BtName={"Login"} pin={pin}/>
       </div>
     </form>
   );

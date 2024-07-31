@@ -15,4 +15,9 @@ body{
   background-color: #f6f5fa;
 }
 
+:root {
+  /* Customizing the success toast background color */
+  --toastify-color-success: #18b1a6 !important;
+}
+
 
