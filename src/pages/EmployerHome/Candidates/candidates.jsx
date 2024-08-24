@@ -56,7 +56,6 @@ const Candidates = () => {
     )
   );
 
-
   useEffect(() => {
     const filteredItems = filteredApplyData.filter((val) => {
       const matchesTitle = candidate
@@ -132,6 +131,9 @@ const Candidates = () => {
     setOpen2(!open2);
   };
 
+  const handlePdf = (pdf) => {
+    window.open(`http://localhost:5000/files/${pdf}`  );
+  };
 
   useEffect(() => {}, [selectOption, selectYear]);
 
@@ -365,7 +367,10 @@ const Candidates = () => {
             <div className="w-[100%] flex justify-between max-sm:flex-col">
               <div className=" w-full text-4xl font-semibold max-md:text-2xl">
                 {userView?.applyFullName}
-                <div className="w-auto py-4 flex flex-col gap-4" onClick={()=>navigate('/pdf-view', { state: { pdf: userView?.applyResume } })}>
+                <div
+                  className="w-auto py-4 flex flex-col gap-4"
+                  onClick={() => handlePdf(userView?.applyResume)}
+                >
                   <label
                     htmlFor="file-input"
                     className=" min-w-fit max-w-fit px-4 py-1 text-center text-lg text-white font-semibold rounded-md bg-[#18b1a6] active:scale-95 duration-150 cursor-pointer max-md:text-sm max-md:w-[60%]"

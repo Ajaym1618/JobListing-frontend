@@ -11,7 +11,7 @@ import ContactInfo from "./UserProfiles/ContactInfo/contactInfo";
 import Apply from "./Applied/apply";
 
 const Home = () => {
-  const [JC, setJC] = useState("Jobs");
+  const [JC, setJC] = useState("Jobs")
   const location = useLocation();
 
   useEffect(() => {

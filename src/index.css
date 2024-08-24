@@ -15,8 +15,20 @@ body{
   background-color: #f6f5fa;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  height: 2px;
+}
+::-webkit-scrollbar-track {
+  background-color: #c2f1ed;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #18b1a6;
+  border-radius: 10px;
+}
+
+
 :root {
-  /* Customizing the success toast background color */
   --toastify-color-success: #18b1a6 !important;
 }
 

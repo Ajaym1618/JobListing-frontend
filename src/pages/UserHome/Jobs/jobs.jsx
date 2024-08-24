@@ -104,6 +104,8 @@ const Jobs = () => {
       userData.userSignEmail === val.applyEmail
     );
   });
+  console.log(apply);
+  
 
 
   const handleView = () => {
