@@ -54,7 +54,6 @@ const Apply = () => {
     viewed: "true",
     timeStamp: timeStamp,
   });
-  console.log(applied);
   
 
   const getApply = async () => {
