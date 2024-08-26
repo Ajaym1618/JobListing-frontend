@@ -53,9 +53,7 @@ export const getUserData = () => API.get('/userdata');
 export const bookmark = (payload) => API.post('/bookmark',payload);
 export const getBookMark = () => API.get('/getbookmark');
 export const deletedBookMark = (id) => API.delete(`/bookmark/${id}`);
-export const contactInfo = (payload) => API.put('/contact-info', payload, {
-  headers:{"Content-Type": "multipart/form-data"}
-});
+export const contactInfo = (payload) => API.put('/contact-info', payload);
 export const contactInfoData = () => API.get('/contact-data')
 export const applyJob = (payload) => API.post('/applied',payload);
 export const qualifyInfo = (payload) => API.put('/qualification', payload);
