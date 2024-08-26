@@ -103,6 +103,9 @@ const ContactInfo = () => {
     setUserContact((prevData) => ({ ...prevData, resume: file }));
   }, [file]);
 
+  console.log(userContact);
+  
+
 
   return (
     <div className="w-[100%] h-auto pt-3">
