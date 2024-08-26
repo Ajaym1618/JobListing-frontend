@@ -132,7 +132,7 @@ const Candidates = () => {
   };
 
   const handlePdf = (pdf) => {
-    window.open(`http://localhost:5000/files/${pdf}`  );
+    window.open(`https://joblisting-backend-qfli.onrender.com/${pdf}`);
   };
 
   useEffect(() => {}, [selectOption, selectYear]);
